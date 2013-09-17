@@ -16,6 +16,7 @@ class ofxParticleEmitter
 {
     public:
         ofxParticleEmitter();
+    
         ~ofxParticleEmitter();
         
         ofxParticleEmitter & setPosition(ofVec3f pos);
