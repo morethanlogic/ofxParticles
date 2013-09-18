@@ -3,7 +3,7 @@
 //  ofxParticlesExample
 //
 //  Created by Elie Zananiri on 2013-09-17.
-//
+//  Based on ofxParticles by Timothy Scaffidi, 2012-06-14.
 //
 
 #include "ofxParticleEmitter.h"

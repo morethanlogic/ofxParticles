@@ -1,9 +1,9 @@
 //
 //  ofxParticles.h
-//  assimpExample
+//  ofxParticles
 //
-//  Created by Timothy Scaffidi on 6/14/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Elie Zananiri on 2013-09-17.
+//  Based on ofxParticles by Timothy Scaffidi, 2012-06-14.
 //
 
 #include "ofxParticle.h"
