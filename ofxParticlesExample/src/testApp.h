@@ -3,8 +3,10 @@
 #include "ofMain.h"
 #include "ofxParticles.h"
 
-class testApp : public ofBaseApp{
-
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+class testApp : public ofBaseApp
+{
 	public:
 		void setup();
 		void update();
@@ -20,14 +22,17 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-    ofxParticleSystem particleSystem;
-    int pmouseX, pmouseY;
-    ofVec2f pmouseVel;
+        ofVec3f centerPt;
+        ofVec3f mousePos;
+        ofVec3f mouseVel;
+        ofVec3f prevMousePos;
+        ofVec3f prevMouseVel;
     
-    ofxParticleEmitter mouseEmitter, topEmitter, botEmitter, leftEmitter, rightEmitter;
-    float rotAcc, gravAcc, fieldMult, drag;
-    ofFloatPixels vectorField;
-    
-    ofTexture pTex, p1Tex, p2Tex;
-    int displayMode;
+        ofxParticleSystem particleSystem;
+        ofxParticleEmitter mouseEmitter, topEmitter, botEmitter, leftEmitter, rightEmitter;
+        float rotAcc, gravAcc, fieldMult, drag;
+        ofFloatPixels vectorField;
+        
+        ofTexture pTex, p1Tex, p2Tex;
+        int displayMode;
 };

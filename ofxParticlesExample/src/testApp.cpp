@@ -1,18 +1,20 @@
 #include "testApp.h"
 
-
-
 //--------------------------------------------------------------
-void testApp::setup(){
+void testApp::setup()
+{
     ofSetFrameRate(60.0);
     ofBackground(0, 0, 0);
-    mouseEmitter.velSpread = ofVec3f(25.0,25.0);
-    mouseEmitter.life = 10.0;
-    mouseEmitter.lifeSpread = 5.0;
+    
+    centerPt.set(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f);
+    
+    mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
+    mouseEmitter.life = 10.0f;
+    mouseEmitter.lifeSpread = 5.0f;
     mouseEmitter.numPars = 10;
-    mouseEmitter.color = ofColor(200,200,255);
-    mouseEmitter.colorSpread = ofColor(20,20,0);
-    mouseEmitter.size = 32;
+    mouseEmitter.color = ofColor(200, 200, 255);
+    mouseEmitter.colorSpread = ofColor(20, 20, 0);
+    mouseEmitter.size = 32.0f;
     
     leftEmitter.setPosition(ofVec3f(0,ofGetHeight()/3));
     leftEmitter.setVelocity(ofVec3f(150.0,0.0));
@@ -59,8 +61,8 @@ void testApp::setup(){
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
-    
+void testApp::update()
+{    
     for(int y = 0; y < vectorField.getHeight(); y++)
         for(int x=0; x< vectorField.getWidth(); x++){
             int index = vectorField.getPixelIndex(x, y);
@@ -71,11 +73,11 @@ void testApp::update(){
         }
     
     float dt = min(ofGetLastFrameTime(), 1.0/10.0);
-    particleSystem.gravitateTo(ofPoint(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f), gravAcc, 1, 10.0, false);
-    particleSystem.rotateAround(ofPoint(ofGetWidth()/2,ofGetHeight()/2), rotAcc, 10.0, false);
+    particleSystem.gravitateTo(centerPt, gravAcc, 1, 10.0, false);
+    particleSystem.rotateAround(centerPt, rotAcc, 10.0, false);
     particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
     if(ofGetMousePressed(2)){
-        particleSystem.gravitateTo(ofPoint(mouseX, mouseY), gravAcc, 1.0f, 10.0f, false);
+        particleSystem.gravitateTo(mousePos, gravAcc, 1.0f, 10.0f, false);
     }
     
     particleSystem.update(dt, drag);
@@ -85,17 +87,17 @@ void testApp::update(){
     particleSystem.addParticles(topEmitter);
     particleSystem.addParticles(botEmitter);
     
-    ofVec2f mouseVel(mouseX-pmouseX,mouseY - pmouseY);
-    mouseVel*=20.0;
-    if(ofGetMousePressed(0)){
-        mouseEmitter.setPosition(ofVec3f(pmouseX,pmouseY),ofVec3f(mouseX,mouseY));
-        mouseEmitter.posSpread = ofVec3f(10.0,10.0,0.0);
-        mouseEmitter.setVelocity(pmouseVel, mouseVel);
+    // Update mouse emitter.
+    mouseVel = mousePos - prevMousePos;
+    mouseVel *= 20.0f;
+    if (ofGetMousePressed(0)) {
+        mouseEmitter.setPosition(prevMousePos, mousePos);
+        mouseEmitter.posSpread = ofVec3f(10.0f, 10.0f, 0.0f);
+        mouseEmitter.setVelocity(prevMouseVel, mouseVel);
         particleSystem.addParticles(mouseEmitter);
     }
-    pmouseX = mouseX;
-    pmouseY = mouseY;
-    pmouseVel = mouseVel;
+    prevMousePos = mousePos;
+    prevMouseVel = mouseVel;
 }
 
 //--------------------------------------------------------------
@@ -199,26 +201,34 @@ void testApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void testApp::mouseMoved(int x, int y)
+{
+    mousePos.set(x, y);
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
-    
+void testApp::mouseDragged(int x, int y, int button)
+{
+    mousePos.set(x, y);    
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void testApp::mousePressed(int x, int y, int button)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void testApp::mouseReleased(int x, int y, int button)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void testApp::windowResized(int w, int h)
+{
+    centerPt.set(w * 0.5f, h * 0.5f);
+
     leftEmitter.setPosition(ofVec3f(0,h/3));
     rightEmitter.setPosition(ofVec3f(w-1,h*2/3));
     topEmitter.setPosition(ofVec3f(w*2/3,0));
