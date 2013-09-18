@@ -19,11 +19,11 @@ class ofxParticleEmitter
     
         ~ofxParticleEmitter();
         
-        ofxParticleEmitter & setPosition(ofVec3f pos);
-        ofxParticleEmitter & setPosition(ofVec3f posStart, ofVec3f posEnd);
+        void setPosition(const ofVec3f& pos);
+        void setPosition(const ofVec3f& posStart, const ofVec3f& posEnd);
         
-        ofxParticleEmitter & setVelocity(ofVec3f vel);
-        ofxParticleEmitter & setVelocity(ofVec3f velStart, ofVec3f velEnd);
+        void setVelocity(const ofVec3f& vel);
+        void setVelocity(const ofVec3f& velStart, const ofVec3f& velEnd);
         
         ofVec3f positionStart;
         ofVec3f positionEnd;

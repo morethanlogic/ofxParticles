@@ -23,26 +23,23 @@ class ofxParticleSystem
         
         ~ofxParticleSystem();
         
-        void addParticles(ofxParticleEmitter & src);
+        void addParticles(ofxParticleEmitter& src);
         
-        void attractTo(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
-        
+        void attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle);
         void gravitateTo(const ofPoint& pt, float gravity, float mass, float minDist, float bConsumeParticle);
-        
-        void rotateAround(ofPoint p, const float accel, const float minDist, const float consumeParticle);
-        
-        void applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, ofRectangle areaOfInfluence, float force);
+        void rotateAround(const ofPoint& pt, float acc, float minDist, float bConsumeParticle);
+        void applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force);
         
         int update(float timeStep, float drag);
         
         void draw();
-        void draw(ofTexture &tex);
-        void draw(ofTexture &tex, ofTexture &tex2);
+        void draw(ofTexture& tex);
+        void draw(ofTexture& tex, ofTexture& tex2);
         
         int getNumParticles();
         
     private:
-        list<ofxParticle*> particles;
-        int numParticles;
-        int totalParticlesEmitted;
+        list<ofxParticle *> _particles;
+        int _numParticles;
+        int _totalParticlesEmitted;
 };

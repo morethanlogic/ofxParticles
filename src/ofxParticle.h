@@ -17,24 +17,24 @@ class ofxParticle
     public:
         ofxParticle();
         ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_);
-        ofxParticle(const ofxParticle &mom);
+        ofxParticle(const ofxParticle& mom);
         
         ~ofxParticle();
     
-        bool operator < (const ofxParticle &b);
+        bool operator < (const ofxParticle& b);
 
-        ofxParticle & operator=(const ofxParticle &mom);
+        ofxParticle& operator = (const ofxParticle& mom);
         
-        void applyForce(ofVec3f force);
+        void applyForce(const ofVec3f& force);
     
-        void attractTo(ofxParticle p, const float accel, const float minDist, const bool consumeParticle);
-        void attractTo(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
+        void attractTo(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle);
+        void attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle);
             
         void gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsumeParticle);
         void gravitateTo(const ofPoint& pt, float gravity, float mass2, float minDist, bool bConsumeParticle);
         
-        void rotateAround(ofxParticle p, const float accel, const float minDist, const bool consumeParticle);
-        void rotateAround(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
+        void rotateAround(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle);
+        void rotateAround(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle);
             
         void update(const float timeStep, const float drag);
             

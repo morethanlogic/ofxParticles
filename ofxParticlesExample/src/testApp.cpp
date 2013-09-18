@@ -4,6 +4,8 @@
 void testApp::setup()
 {
     ofSetFrameRate(60.0);
+    ofSetCircleResolution(180);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
     ofBackground(0, 0, 0);
     
     centerPt.set(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f);
@@ -51,32 +53,34 @@ void testApp::setup()
     ofLoadImage(p1Tex, "p1.png");
     ofLoadImage(p2Tex, "p2.png");
     
+    // Set parameter defaults.
     rotAcc = 4500;
     gravAcc = 13500;
     drag = 0.5;
     fieldMult = 40.0;
     displayMode = 0;
-    
-    ofEnableBlendMode(OF_BLENDMODE_ADD);
 }
 
 //--------------------------------------------------------------
 void testApp::update()
 {    
-    for(int y = 0; y < vectorField.getHeight(); y++)
-        for(int x=0; x< vectorField.getWidth(); x++){
+    // Update vector field.
+    for (int y = 0; y < vectorField.getHeight(); y++) {
+        for (int x = 0; x< vectorField.getWidth(); x++) {
             int index = vectorField.getPixelIndex(x, y);
-            float angle = ofNoise(x/(float)vectorField.getWidth()*4.0, y/(float)vectorField.getHeight()*4.0,ofGetElapsedTimef()*0.05)*TWO_PI*2.0;
+            float angle = ofNoise(x / (float)vectorField.getWidth() * 4.0f, y / (float)vectorField.getHeight() * 4.0f, ofGetElapsedTimef() * 0.05f) * TWO_PI * 2.0f;
             ofVec2f dir(cos(angle), sin(angle));
-            dir.normalize().scale(ofNoise(x/(float)vectorField.getWidth()*4.0, y/(float)vectorField.getHeight()*4.0,ofGetElapsedTimef()*0.05+10.0));
-            vectorField.setColor(x, y, ofColor_<float>(dir.x,dir.y, 0));
+            dir.normalize().scale(ofNoise(x / (float)vectorField.getWidth() * 4.0f, y / (float)vectorField.getHeight() * 4.0f, ofGetElapsedTimef() * 0.05 + 10.0f));
+            vectorField.setColor(x, y, ofColor_<float>(dir.x, dir.y, 0.0f));
         }
+    }
     
-    float dt = min(ofGetLastFrameTime(), 1.0/10.0);
-    particleSystem.gravitateTo(centerPt, gravAcc, 1, 10.0, false);
-    particleSystem.rotateAround(centerPt, rotAcc, 10.0, false);
+    // Add forces.
+    float dt = MIN(ofGetLastFrameTime(), 1.0f / 10.0f);
+    particleSystem.gravitateTo(centerPt, gravAcc, 1.0f, 10.0f, false);
+    particleSystem.rotateAround(centerPt, rotAcc, 10.0f, false);
     particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
-    if(ofGetMousePressed(2)){
+    if (ofGetMousePressed(2)) {
         particleSystem.gravitateTo(mousePos, gravAcc, 1.0f, 10.0f, false);
     }
     
@@ -101,29 +105,34 @@ void testApp::update()
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
-    if(ofGetKeyPressed('v')){
-        ofSetLineWidth(1.0);
+void testApp::draw()
+{
+    if (ofGetKeyPressed('v')) {
+        // Draw vector field.
+        ofSetLineWidth(1.0f);
         ofSetColor(80, 80, 80);
         ofPushMatrix();
-        ofScale(ofGetWidth()/(float)vectorField.getWidth(), ofGetHeight()/(float)vectorField.getHeight());
-        for(int y = 0; y < vectorField.getHeight(); y++)
-            for(int x=0; x< vectorField.getWidth(); x++){
-                ofColor_<float> c = vectorField.getColor(x, y);
-                ofVec2f dir(c.r,c.g);
-                
-                ofLine(x, y, x+dir.x, y+dir.y);
+        {
+            ofScale(ofGetWidth() / (float)vectorField.getWidth(), ofGetHeight() / (float)vectorField.getHeight());
+            for (int y = 0; y < vectorField.getHeight(); y++) {
+                for (int x = 0; x< vectorField.getWidth(); x++) {
+                    ofColor_<float> c = vectorField.getColor(x, y);
+                    ofVec2f dir(c.r, c.g);
+                    ofLine(x, y, x + dir.x, y + dir.y);
+                }
             }
+        }
         ofPopMatrix();
     }
     
+    // Draw forces.
     ofNoFill();
-    ofSetCircleResolution(180);
     ofSetColor(255, 0, 0, 50);
-    ofCircle(ofGetWidth()/2, ofGetHeight()/2, sqrt(gravAcc));
+    ofCircle(centerPt, sqrt(gravAcc));
     ofSetColor(0, 0, 255, 50);
-    ofCircle(ofGetWidth()/2, ofGetHeight()/2, sqrt(rotAcc));
+    ofCircle(centerPt, sqrt(rotAcc));
     
+    // Draw system.
     ofSetLineWidth(2.0);
     if (displayMode == 1) {
         particleSystem.draw(pTex);
@@ -134,17 +143,18 @@ void testApp::draw(){
     else {
         particleSystem.draw();
     }
+    
+    // Draw info.
     ofSetColor(255, 255, 255);
-    ofDrawBitmapString(ofToString(particleSystem.getNumParticles()) + "\n" + ofToString(ofGetFrameRate()) +
+    ofDrawBitmapString(ofToString(particleSystem.getNumParticles()) + " particles" +
+                       "\n" + ofToString(ofGetFrameRate()) + " fps" +
                        "\n(G/g) gravitation: " + ofToString(gravAcc) +
                        "\n(R/r) rotational acceleration: " + ofToString(rotAcc) +
                        "\n(F/f) vector field multiplier: " + ofToString(fieldMult) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
                        "\n(v) show vector field" +
-                       "\n(1-3) particle display modes" , 20,20);
-    
-    
-    
+                       "\n(1-3) particle display modes",
+                       20, 20);
 }
 
 //--------------------------------------------------------------

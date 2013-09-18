@@ -10,13 +10,13 @@
 
 //--------------------------------------------------------------
 ofxParticleEmitter::ofxParticleEmitter()
-: size(1.0)
-, sizeSpread(0.0)
-, life(1.0)
-, lifeSpread(0.0)
+: size(1.0f)
+, sizeSpread(0.0f)
+, life(1.0f)
+, lifeSpread(0.0f)
 , numPars(1)
 , color(255, 255, 255, 255)
-, colorSpread(0,0,0,0)
+, colorSpread(0, 0, 0, 0)
 {
 
 }
@@ -28,31 +28,27 @@ ofxParticleEmitter::~ofxParticleEmitter()
 }
 
 //--------------------------------------------------------------
-ofxParticleEmitter & ofxParticleEmitter::setPosition(ofVec3f pos)
+void ofxParticleEmitter::setPosition(const ofVec3f& pos)
 {
     positionStart = positionEnd = pos;
-    return *this;
 }
 
 //--------------------------------------------------------------
-ofxParticleEmitter & ofxParticleEmitter::setPosition(ofVec3f posStart, ofVec3f posEnd)
+void ofxParticleEmitter::setPosition(const ofVec3f& posStart, const ofVec3f& posEnd)
 {
     positionStart = posStart;
     positionEnd = posEnd;
-    return *this;
 }
 
 //--------------------------------------------------------------
-ofxParticleEmitter & ofxParticleEmitter::setVelocity(ofVec3f vel)
+void ofxParticleEmitter::setVelocity(const ofVec3f& vel)
 {
     velocityStart = velocityEnd = vel;
-    return *this;
 }
 
 //--------------------------------------------------------------
-ofxParticleEmitter & ofxParticleEmitter::setVelocity(ofVec3f velStart, ofVec3f velEnd)
+void ofxParticleEmitter::setVelocity(const ofVec3f& velStart, const ofVec3f& velEnd)
 {
     velocityStart = velStart;
     velocityEnd = velEnd;
-    return *this;
 }

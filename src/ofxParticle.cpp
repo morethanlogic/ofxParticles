@@ -48,7 +48,7 @@ ofxParticle::ofxParticle(const ofxParticle &mom)
     life = mom.life;
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
-    dt = 1.0/60;
+    dt = 1.0f / 60.0f;
 }
 
 //--------------------------------------------------------------
@@ -58,15 +58,16 @@ ofxParticle::~ofxParticle()
 }
 
 //--------------------------------------------------------------
-bool ofxParticle::operator < (const ofxParticle & b)
+bool ofxParticle::operator < (const ofxParticle& b)
 {
     return position.z < b.position.z;
 }
 
 //--------------------------------------------------------------
-ofxParticle & ofxParticle::operator=(const ofxParticle & mom)
+ofxParticle& ofxParticle::operator = (const ofxParticle& mom)
 {
-    if(&mom==this) return *this;
+    if (&mom == this) return *this;
+    
     position = mom.position;
     velocity = mom.velocity;
     acceleration = mom.acceleration;
@@ -78,34 +79,37 @@ ofxParticle & ofxParticle::operator=(const ofxParticle & mom)
     life = mom.life;
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
-    dt = 1.0/60;
+    dt = 1.0f / 60.0f;
+    
     return *this;
 }
 
 //--------------------------------------------------------------
-void ofxParticle::applyForce(ofVec3f force)
+void ofxParticle::applyForce(const ofVec3f& force)
 {
     acceleration += force * dt;
 }
 
 //--------------------------------------------------------------
-void ofxParticle::attractTo(ofxParticle p, const float accel, const float minDist, const bool consumeParticle)
+void ofxParticle::attractTo(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle)
 {
-    attractTo(p.position, accel, minDist, consumeParticle);
+    attractTo(p.position, acc, minDist, bConsumeParticle);
 }
 
 //--------------------------------------------------------------
-void ofxParticle::attractTo(ofPoint p, const float accel, const float minDist, const bool consumeParticle)
+void ofxParticle::attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle)
 {
-    ofVec3f dir = p-position;
+    ofVec3f dir = pt - position;
+
     float dist = dir.length();
-    if(dist < minDist){
+    if (dist < minDist) {
         dist = minDist;
-        if(consumeParticle)
+        if (bConsumeParticle) {
             life = 0;
+        }
     }
     
-    dir.normalize().scale(accel*dt);
+    dir.normalize().scale(acc * dt);
     acceleration += dir;
 }
 
@@ -135,24 +139,25 @@ void ofxParticle::gravitateTo(const ofPoint& pt, float gravity, float mass2, flo
 }
 
 //--------------------------------------------------------------
-void ofxParticle::rotateAround(ofxParticle p, const float accel, const float minDist, const bool consumeParticle)
+void ofxParticle::rotateAround(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle)
 {
-    rotateAround(p.position, accel, minDist, consumeParticle);
+    rotateAround(p.position, acc, minDist, bConsumeParticle);
 }
 
 //--------------------------------------------------------------
-void ofxParticle::rotateAround(ofPoint p, const float accel, const float minDist, const bool consumeParticle)
+void ofxParticle::rotateAround(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle)
 {
-    ofVec3f toPoint = position - p;
+    ofVec3f toPoint = position - pt;
     ofVec3f dir = ofVec3f(-toPoint.y, toPoint.x, toPoint.z);
     float dist = toPoint.length();
-    if(dist < minDist){
+    if (dist < minDist) {
         dist = minDist;
-        if(consumeParticle)
+        if (bConsumeParticle) {
             life = 0;
+        }
     }
-    dir.normalize().scale((accel/dist) *dt);
     
+    dir.normalize().scale((acc / dist) * dt);
     acceleration += dir;
 }
 
