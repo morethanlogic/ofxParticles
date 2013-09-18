@@ -71,11 +71,11 @@ void testApp::update(){
         }
     
     float dt = min(ofGetLastFrameTime(), 1.0/10.0);
-    particleSystem.gravitateTo(ofPoint(ofGetWidth()/2,ofGetHeight()/2), gravAcc, 1, 10.0, false);
+    particleSystem.gravitateTo(ofPoint(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f), gravAcc, 1, 10.0, false);
     particleSystem.rotateAround(ofPoint(ofGetWidth()/2,ofGetHeight()/2), rotAcc, 10.0, false);
     particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
     if(ofGetMousePressed(2)){
-        particleSystem.gravitateTo(ofPoint(mouseX,mouseY), gravAcc, 1, 10.0, false);
+        particleSystem.gravitateTo(ofPoint(mouseX, mouseY), gravAcc, 1.0f, 10.0f, false);
     }
     
     particleSystem.update(dt, drag);

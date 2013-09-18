@@ -110,23 +110,27 @@ void ofxParticle::attractTo(ofPoint p, const float accel, const float minDist, c
 }
 
 //--------------------------------------------------------------
-void ofxParticle::gravitateTo(ofxParticle p, const float gravity, const float minDist, const bool consumeParticle)
+void ofxParticle::gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsumeParticle)
 {
-    gravitateTo(p.position, gravity, p.mass, minDist, consumeParticle);
+    gravitateTo(p.position, gravity, p.mass, minDist, bConsumeParticle);
 }
 
 //--------------------------------------------------------------
-void ofxParticle::gravitateTo(ofPoint p, const float gravity, const float mass2, const float minDist, const bool consumeParticle)
+void ofxParticle::gravitateTo(const ofPoint& pt, float gravity, float mass2, float minDist, bool bConsumeParticle)
 {
-    if(p==position) return;
-    ofVec3f dir = p-position;
+    if (pt == position) return;
+    
+    ofVec3f dir = pt - position;
+
     float dist = dir.length();
-    if(dist < minDist){
+    if (dist < minDist) {
         dist = minDist;
-        if(consumeParticle)
+        if (bConsumeParticle) {
             life = 0;
+        }
     }
-    dir.normalize().scale( gravity * mass * mass2 * dt * (1.0/(dist)));
+    
+    dir.normalize().scale(gravity * mass * mass2 * dt * (1.0f / dist));
     acceleration += dir;
 }
 

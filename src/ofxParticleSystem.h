@@ -27,7 +27,7 @@ class ofxParticleSystem
         
         void attractTo(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
         
-        void gravitateTo(ofPoint p, const float gravity, const float mass, const float minDist, const float consumeParticle);
+        void gravitateTo(const ofPoint& pt, float gravity, float mass, float minDist, float bConsumeParticle);
         
         void rotateAround(ofPoint p, const float accel, const float minDist, const float consumeParticle);
         

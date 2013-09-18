@@ -69,10 +69,10 @@ void ofxParticleSystem::attractTo(ofPoint p, const float accel, const float minD
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::gravitateTo(ofPoint p, const float gravity, const float mass, const float minDist, const float consumeParticle)
+void ofxParticleSystem::gravitateTo(const ofPoint& pt, float gravity, float mass, float minDist, float bConsumeParticle)
 {
-    for(list<ofxParticle*>::iterator it = particles.begin(); it != particles.end(); it++){
-        (**it).gravitateTo(p, gravity, mass, minDist, consumeParticle);
+    for (auto& it : particles) {
+        it->gravitateTo(pt, gravity, mass, minDist, bConsumeParticle);
     }
 }
 

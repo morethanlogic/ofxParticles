@@ -30,8 +30,8 @@ class ofxParticle
         void attractTo(ofxParticle p, const float accel, const float minDist, const bool consumeParticle);
         void attractTo(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
             
-        void gravitateTo(ofxParticle p, const float gravity, const float minDist, const bool consumeParticle);
-        void gravitateTo(ofPoint p, const float gravity, const float mass2, const float minDist, const bool consumeParticle);
+        void gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsumeParticle);
+        void gravitateTo(const ofPoint& pt, float gravity, float mass2, float minDist, bool bConsumeParticle);
         
         void rotateAround(ofxParticle p, const float accel, const float minDist, const bool consumeParticle);
         void rotateAround(ofPoint p, const float accel, const float minDist, const bool consumeParticle);
