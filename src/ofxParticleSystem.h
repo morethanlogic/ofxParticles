@@ -36,9 +36,6 @@ class ofxParticleSystem
         void draw(ofTexture& tex);
         void draw(ofTexture& tex, ofTexture& tex2);
         
-        int getNumParticles();
-        
-    protected:
         list<ofxParticle *> particles;
         int numParticles;
         int totalParticlesEmitted;

@@ -151,9 +151,3 @@ void ofxParticleSystem::draw(ofTexture& tex, ofTexture& tex2)
         }
     }
 }
-
-//--------------------------------------------------------------
-int ofxParticleSystem::getNumParticles()
-{
-    return numParticles;
-}
