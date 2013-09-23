@@ -44,7 +44,7 @@ class ofxParticleEmitter
         float life;
         float lifeSpread;
         
-        int numPars;
+        float numPars;
         
         ofColor color;
         ofColor colorSpread;
