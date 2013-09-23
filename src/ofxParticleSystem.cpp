@@ -16,8 +16,8 @@ inline ofVec3f ofRandVec3f()
 
 //--------------------------------------------------------------
 ofxParticleSystem::ofxParticleSystem()
-: _numParticles(0)
-, _totalParticlesEmitted(0)
+: numParticles(0)
+, totalParticlesEmitted(0)
 {
 
 }
@@ -46,7 +46,7 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
         ofxParticle * par = new ofxParticle(p,v,s,l);
         par->rotation = src.rotation+ofRandVec3f()*src.rotSpread;
         par->rotationalVelocity = src.rotVel+ofRandVec3f()*src.rotVelSpread;
-        par->particleID = _totalParticlesEmitted + i;
+        par->particleID = totalParticlesEmitted + i;
         ofColor pColor = src.color;
         if (src.colorSpread != ofColor(0, 0, 0, 0)) {
             pColor.r = ofClamp(pColor.r + ofRandomf() * src.colorSpread.r, 0, 255);
@@ -55,17 +55,17 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
             pColor.a = ofClamp(pColor.a + ofRandomf() * src.colorSpread.a, 0, 255);
         }
         par->color = pColor;
-        _particles.push_back(par);
+        particles.push_back(par);
     }
     
-    _numParticles += src.numPars;
-    _totalParticlesEmitted += src.numPars;
+    numParticles += src.numPars;
+    totalParticlesEmitted += src.numPars;
 }
 
 //--------------------------------------------------------------
 void ofxParticleSystem::attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         it->attractTo(pt, acc, minDist, bConsumeParticle);
     }
 }
@@ -73,7 +73,7 @@ void ofxParticleSystem::attractTo(const ofPoint& pt, float acc, float minDist, b
 //--------------------------------------------------------------
 void ofxParticleSystem::gravitateTo(const ofPoint& pt, float gravity, float mass, float minDist, float bConsumeParticle)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         it->gravitateTo(pt, gravity, mass, minDist, bConsumeParticle);
     }
 }
@@ -81,7 +81,7 @@ void ofxParticleSystem::gravitateTo(const ofPoint& pt, float gravity, float mass
 //--------------------------------------------------------------
 void ofxParticleSystem::rotateAround(const ofPoint& pt, float acc, float minDist, float bConsumeParticle)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         it->rotateAround(pt, acc, minDist, bConsumeParticle);
     }
 }
@@ -89,7 +89,7 @@ void ofxParticleSystem::rotateAround(const ofPoint& pt, float acc, float minDist
 //--------------------------------------------------------------
 void ofxParticleSystem::applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         ofVec2f pos2D(it->position.x, it->position.y);
         if (areaOfInfluence.inside(pos2D)) {
             int x = (int)ofMap(pos2D.x, areaOfInfluence.getMinX(), areaOfInfluence.getMaxX(), 0, fieldWidth - 1);
@@ -106,18 +106,18 @@ void ofxParticleSystem::applyVectorField(float * field, int fieldWidth, int fiel
 int ofxParticleSystem::update(float timeStep, float drag)
 {
     int particlesRemoved = 0;
-    for (list<ofxParticle *>::iterator it = _particles.begin(); it != _particles.end(); it++) {
+    for (list<ofxParticle *>::iterator it = particles.begin(); it != particles.end(); it++) {
         ofxParticle * p = (*it);
         if (p->isAlive()) {
             p->update(timeStep, drag);
         }
         else {
-            it = _particles.erase(it);
+            it = particles.erase(it);
             delete p;
             ++particlesRemoved;
         }
     }
-    _numParticles -= particlesRemoved;
+    numParticles -= particlesRemoved;
     
     return particlesRemoved;
 }
@@ -125,7 +125,7 @@ int ofxParticleSystem::update(float timeStep, float drag)
 //--------------------------------------------------------------
 void ofxParticleSystem::draw()
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         it->draw();
     }
 }
@@ -133,7 +133,7 @@ void ofxParticleSystem::draw()
 //--------------------------------------------------------------
 void ofxParticleSystem::draw(ofTexture& tex)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         it->draw(tex);
     }
 }
@@ -141,7 +141,7 @@ void ofxParticleSystem::draw(ofTexture& tex)
 //--------------------------------------------------------------
 void ofxParticleSystem::draw(ofTexture& tex, ofTexture& tex2)
 {
-    for (auto& it : _particles) {
+    for (auto& it : particles) {
         int index = it->particleID;
         if(index % 2 == 0) {
             it->draw(tex);
@@ -155,5 +155,5 @@ void ofxParticleSystem::draw(ofTexture& tex, ofTexture& tex2)
 //--------------------------------------------------------------
 int ofxParticleSystem::getNumParticles()
 {
-    return _numParticles;
+    return numParticles;
 }

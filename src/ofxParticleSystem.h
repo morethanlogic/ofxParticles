@@ -38,8 +38,8 @@ class ofxParticleSystem
         
         int getNumParticles();
         
-    private:
-        list<ofxParticle *> _particles;
-        int _numParticles;
-        int _totalParticlesEmitted;
+    protected:
+        list<ofxParticle *> particles;
+        int numParticles;
+        int totalParticlesEmitted;
 };
