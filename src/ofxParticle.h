@@ -16,7 +16,7 @@ class ofxParticle
 {
     public:
         ofxParticle();
-        ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_);
+        ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_, int maxHistoryLength_);
         ofxParticle(const ofxParticle& mom);
         
         ~ofxParticle();
@@ -55,6 +55,10 @@ class ofxParticle
         float size;
         float life;
         float lifeStart;
+        int maxHistoryLength;
         float dt;
         int particleID;
+    
+    private:
+        deque<ofVec3f> history;
 };

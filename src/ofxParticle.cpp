@@ -21,7 +21,7 @@ ofxParticle::ofxParticle()
 }
 
 //--------------------------------------------------------------
-ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_)
+ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_, int maxHistoryLength_)
 {
     position = pos;
     velocity = vel;
@@ -29,6 +29,7 @@ ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_)
     color = ofColor(255,255,255,255);
     mass = 1.0;
     size = size_;
+    maxHistoryLength = maxHistoryLength_;
     lifeStart = life = MAX(1.0, life_);
     particleID = 0;
     dt = 1.0/60;
@@ -54,7 +55,7 @@ ofxParticle::ofxParticle(const ofxParticle &mom)
 //--------------------------------------------------------------
 ofxParticle::~ofxParticle()
 {
-
+    history.clear();
 }
 
 //--------------------------------------------------------------
@@ -171,19 +172,61 @@ void ofxParticle::update(const float timeStep, const float drag)
     acceleration -= acceleration * dt;
     rotation += rotationalVelocity * dt;
     
-    color.a = life/lifeStart*color.a;
+    //color.a = life/lifeStart*color.a;
     
     life -= dt;
     if (life < 0) life = 0;
+    
+    if (maxHistoryLength > 0) {
+        history.push_back(position);
+        if (history.size() > maxHistoryLength) {
+            history.pop_front();
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofxParticle::draw()
 {
     ofColor c = color;
-    c.a = life/lifeStart*color.a;
     ofSetColor(c);
+    ofSetLineWidth(size);
     ofLine(position, position-velocity*dt);
+    ofSetLineWidth(1.0f);
+    
+    if(history.size() > 0) {
+        float radius = size;
+        const ofVec3f back = history.back();
+
+        glBegin(GL_LINE_STRIP);
+        float total = static_cast<float>(history.size());
+        for (int i = static_cast<int>(history.size())-1; i>0; i--) {
+            float per = static_cast<float>(i) / total;
+            const ofVec3f& cur = history[i];
+            const ofVec3f& last = history[i-1];
+            ofVec3f curPos(cur[0], cur[1], cur[2]);
+            ofVec3f lastPos(last[0], last[1], last[2]);
+            
+            ofVec3f perp0 = curPos - lastPos;
+            ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
+            ofVec3f perp2 = perp0.cross(perp1);
+            perp1 = perp0.cross(perp2).normalized();
+            float offWidth = (radius * cur[3] * per * 0.07f);
+            float opacityScale = 0.95f*back[3]*per;
+            if (per > 0.8f) {
+                float temp = (1.0f - per) / 0.2f;
+                float tempScale = sqrt(temp);
+                offWidth *= tempScale;
+                opacityScale *= tempScale;
+            }
+            ofVec3f off = perp1 * offWidth;
+            ofVec3f vecA = curPos - off;
+            ofVec3f vecB = curPos + off;
+            glVertex3f(vecA.x, vecA.y, vecA.z);
+            glVertex3f(vecB.x, vecB.y, vecB.z);
+        }
+        glEnd();
+    }
 }
 
 //--------------------------------------------------------------

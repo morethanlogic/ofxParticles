@@ -43,7 +43,7 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
         ofVec3f v = vel + ofRandVec3f() * src.velSpread;
         float s = src.size + ofRandomf() * src.sizeSpread;
         float l = src.life + ofRandomf() * src.lifeSpread;
-        ofxParticle * par = new ofxParticle(p,v,s,l);
+        ofxParticle * par = new ofxParticle(p,v,s,l, src.particleMaxHistoryLength);
         par->rotation = src.rotation+ofRandVec3f()*src.rotSpread;
         par->rotationalVelocity = src.rotVel+ofRandVec3f()*src.rotVelSpread;
         par->particleID = totalParticlesEmitted + i;

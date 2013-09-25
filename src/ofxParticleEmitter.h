@@ -43,7 +43,9 @@ class ofxParticleEmitter
         
         float life;
         float lifeSpread;
-        
+    
+        int particleMaxHistoryLength;
+    
         int numPars;
         
         ofColor color;
