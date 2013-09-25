@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\testApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\testApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxParticles\src\ofxParticle.cpp">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxParticles\src\ofxParticleEmitter.cpp">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxParticles\src\ofxParticleSystem.cpp">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxParticles">
+			<UniqueIdentifier>{0ED252E8-3330-70F0-EB85-B3D9}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxParticles\src">
+			<UniqueIdentifier>{8A5D841A-F767-E909-E9D0-4F9E}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\testApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\testApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxParticles\src\ofxParticle.h">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxParticles\src\ofxParticleEmitter.h">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxParticles\src\ofxParticles.h">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxParticles\src\ofxParticleSystem.h">
+			<Filter>addons\ofxParticles\src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>
