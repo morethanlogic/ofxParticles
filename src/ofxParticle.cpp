@@ -29,7 +29,7 @@ ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_)
     color = ofColor(255,255,255,255);
     mass = 1.0;
     size = size_;
-    lifeStart = life = life_;
+    lifeStart = life = MAX(1.0, life_);
     particleID = 0;
     dt = 1.0/60;
 }
@@ -172,6 +172,7 @@ void ofxParticle::update(const float timeStep, const float drag)
     rotation += rotationalVelocity * dt;
     
     life -= dt;
+    if (life < 0) life = 0;
 }
 
 //--------------------------------------------------------------
