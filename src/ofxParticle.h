@@ -43,11 +43,13 @@ class ofxParticle
             
         bool isAlive();
     
-        ofVec3f position;
+        ofVec4f position;
         ofVec3f velocity; // pixels/sec
         ofVec3f acceleration; // pixels/sec/sec
         ofColor color;
-        
+        ofColor startColor;
+
+    
         ofVec3f rotation;
         ofVec3f rotationalVelocity;
         
@@ -60,5 +62,7 @@ class ofxParticle
         int particleID;
     
     private:
-        deque<ofVec3f> history;
+        deque<ofVec4f> history;
+    
+        bool inView(ofVec4f& pos);
 };

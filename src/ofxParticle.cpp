@@ -8,16 +8,26 @@
 
 #include "ofxParticle.h"
 
+
+const float HEAT_SPAWN_AMT = .1f;
+const float HEAT_KILL_THRESHOLD = 0.05f;
+const double HEAT_CHANGE_RATE = 0.04;
+const float MIN_RADIUS = 8.0f;
+const float MAX_RADIUS = 60.0f;
+
 //--------------------------------------------------------------
 ofxParticle::ofxParticle()
 {
-    position = velocity = acceleration = ofVec3f(0,0,0);
+    position = ofVec4f(0,0,0,HEAT_SPAWN_AMT);
+    velocity = acceleration = ofVec3f(0,0,0);
     color = ofColor(255,255,255,255);
     mass = 1.0;
     size = 1.0;
     lifeStart = life = 1.0;
     particleID = 0;
     dt = 1.0/60;
+    
+    history.push_back(position);
 }
 
 //--------------------------------------------------------------
@@ -27,6 +37,7 @@ ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_, int
     velocity = vel;
     acceleration = ofVec3f(0,0,0);
     color = ofColor(255,255,255,255);
+    startColor = color;
     mass = 1.0;
     size = size_;
     maxHistoryLength = maxHistoryLength_;
@@ -165,6 +176,20 @@ void ofxParticle::rotateAround(const ofPoint& pt, float acc, float minDist, bool
 //--------------------------------------------------------------
 void ofxParticle::update(const float timeStep, const float drag)
 {
+    if(history.size() > 0) {
+        ofVec4f curParticle = history.back();
+        if (curParticle[3] < HEAT_KILL_THRESHOLD) {
+            history.pop_front();
+        }
+    
+        if (inView(curParticle)) {
+            curParticle[3] = std::min(static_cast<float>(curParticle[3] + HEAT_CHANGE_RATE), 1.0f);
+        } else {
+            curParticle[3] = std::max(static_cast<float>(curParticle[3] - HEAT_CHANGE_RATE), 0.0f);
+        }
+        position[3] = curParticle[3];
+    }
+    
     dt = timeStep;
     velocity += acceleration * dt;
     velocity -= (velocity * dt * (1.0-drag));
@@ -172,7 +197,7 @@ void ofxParticle::update(const float timeStep, const float drag)
     acceleration -= acceleration * dt;
     rotation += rotationalVelocity * dt;
     
-    //color.a = life/lifeStart*color.a;
+    color.a = life/lifeStart*startColor.a;
     
     life -= dt;
     if (life < 0) life = 0;
@@ -186,6 +211,11 @@ void ofxParticle::update(const float timeStep, const float drag)
 }
 
 //--------------------------------------------------------------
+bool ofxParticle::inView(ofVec4f& pos) {
+    return pos[0] >= 0 && pos[0] <= ofGetWidth() && pos[1] >= 0 && pos[1] <= ofGetHeight();// && pos[2] > 0 && pos[2] < 1000.0f/2;
+}
+
+//--------------------------------------------------------------
 void ofxParticle::draw()
 {
     ofColor c = color;
@@ -195,37 +225,45 @@ void ofxParticle::draw()
     ofSetLineWidth(1.0f);
     
     if(history.size() > 0) {
-        float radius = size;
-        const ofVec3f back = history.back();
+        const ofVec4f back = history.back();
+        float temp = static_cast<float>((size-MIN_RADIUS)/(MAX_RADIUS-MIN_RADIUS));
+        float radius = size * back[3];
 
-        glBegin(GL_LINE_STRIP);
-        float total = static_cast<float>(history.size());
-        for (int i = static_cast<int>(history.size())-1; i>0; i--) {
-            float per = static_cast<float>(i) / total;
-            const ofVec3f& cur = history[i];
-            const ofVec3f& last = history[i-1];
+        glBegin(GL_QUAD_STRIP);
+        float total = history.size();
+        for (int i = history.size()-1; i>0; i--) {
+            float per = i / total;
+            
+            const ofVec4f& cur = history[i];
+            const ofVec4f& last = history[i-1];
             ofVec3f curPos(cur[0], cur[1], cur[2]);
             ofVec3f lastPos(last[0], last[1], last[2]);
             
             ofVec3f perp0 = curPos - lastPos;
             ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
-            ofVec3f perp2 = perp0.cross(perp1);
-            perp1 = perp0.cross(perp2).normalized();
-            float offWidth = (radius * cur[3] * per * 0.07f);
-            float opacityScale = 0.95f*back[3]*per;
+            //ofVec3f perp2 = perp0.cross(perp1);
+            //perp1 = perp0.cross(perp2).normalized();
+            float offWidth = (radius * cur[3] * per * 0.8f);
+            float opacityScale = c.a/255.0f*back[3]*per;
+            
             if (per > 0.8f) {
                 float temp = (1.0f - per) / 0.2f;
                 float tempScale = sqrt(temp);
                 offWidth *= tempScale;
                 opacityScale *= tempScale;
             }
+            
             ofVec3f off = perp1 * offWidth;
+            
+            glColor4f(c.r/255.0f, c.g/255.0f, c.b/255.0f, opacityScale);
+
             ofVec3f vecA = curPos - off;
             ofVec3f vecB = curPos + off;
             glVertex3f(vecA.x, vecA.y, vecA.z);
             glVertex3f(vecB.x, vecB.y, vecB.z);
         }
         glEnd();
+        
     }
 }
 
