@@ -55,6 +55,7 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
             pColor.a = ofClamp(pColor.a + ofRandomf() * src.colorSpread.a, 0, 255);
         }
         par->color = pColor;
+        par->startColor = par->color;
         particles.push_back(par);
     }
     
