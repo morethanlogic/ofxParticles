@@ -56,7 +56,8 @@ class ofxParticle
     
         ofVec3f rotation;
         ofVec3f rotationalVelocity;
-        
+    
+        int emitterID;
         float mass;
         float size;
         float life;

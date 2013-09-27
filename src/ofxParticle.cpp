@@ -18,6 +18,8 @@ const float MAX_RADIUS = 60.0f;
 //--------------------------------------------------------------
 ofxParticle::ofxParticle()
 {
+    emitterID = -1;
+    
     position = ofVec4f(0,0,0,HEAT_SPAWN_AMT);
     velocity = acceleration = ofVec3f(0,0,0);
     color = ofColor(255,255,255,255);

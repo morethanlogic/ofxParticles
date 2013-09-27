@@ -24,7 +24,8 @@ class ofxParticleEmitter
         
         void setVelocity(const ofVec3f& vel);
         void setVelocity(const ofVec3f& velStart, const ofVec3f& velEnd);
-        
+    
+        int emitterID;
         ofVec3f positionStart;
         ofVec3f positionEnd;
         ofVec3f posSpread;

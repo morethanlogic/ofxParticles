@@ -10,7 +10,8 @@
 
 //--------------------------------------------------------------
 ofxParticleEmitter::ofxParticleEmitter()
-: size(1.0f)
+: emitterID(-1)
+, size(1.0f)
 , sizeSpread(0.0f)
 , life(1.0f)
 , lifeSpread(0.0f)
