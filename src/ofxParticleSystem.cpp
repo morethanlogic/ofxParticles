@@ -41,9 +41,6 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
         }
         
         ofVec3f p = pos + ofRandVec3f() * src.posSpread;
-        cout << pos.x << " : " << p.x << " : " << src.posSpread.x << endl;
-
-        
         ofVec3f v = vel + ofRandVec3f() * src.velSpread;
         float s = src.size + ofRandomf() * src.sizeSpread;
         float l = src.life + ofRandomf() * src.lifeSpread;
