@@ -33,6 +33,11 @@ class ofxParticleSystem
         int update(float timeStep, float drag);
         
         void draw();
+    
+        void drawVertex();
+        void drawVertex(ofColor color_);
+        void drawHistory();
+    
         void draw(ofTexture& tex);
         void draw(ofTexture& tex, ofTexture& tex2);
         

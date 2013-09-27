@@ -215,7 +215,7 @@ void ofxParticle::update(const float timeStep, const float drag)
 
 //--------------------------------------------------------------
 bool ofxParticle::inView(ofVec4f& pos) {
-    return pos[0] >= 0 && pos[0] <= ofGetWidth() && pos[1] >= 0 && pos[1] <= ofGetHeight();// && pos[2] > 0 && pos[2] < 1000.0f/2;
+    return pos[0] >= 0 && pos[0] <= ofGetWidth() && pos[1] >= 0 && pos[1] <= ofGetHeight() && pos[2] >= 0 && pos[2] < 500.0f;
 }
 
 //--------------------------------------------------------------
@@ -226,7 +226,26 @@ void ofxParticle::draw()
     ofSetLineWidth(size);
     ofLine(position, position-velocity*dt);
     ofSetLineWidth(1.0f);
-    
+}
+
+//--------------------------------------------------------------
+void ofxParticle::drawVertex()
+{
+    drawVertex(color);
+}
+
+//--------------------------------------------------------------
+void ofxParticle::drawVertex(ofColor color_)
+{
+    ofColor c = color_;
+    c.a = color.a;
+    ofSetColor(c);
+    glVertex3f(position.x, position.y, position.z);
+}
+
+//--------------------------------------------------------------
+void ofxParticle::drawHistory()
+{
     if(history.size() > 0) {
         const ofVec4f back = history.back();
         float temp = static_cast<float>((size-MIN_RADIUS)/(MAX_RADIUS-MIN_RADIUS));
@@ -236,29 +255,29 @@ void ofxParticle::draw()
         float total = history.size();
         for (int i = history.size()-1; i>0; i--) {
             float per = i / total;
-            
+
             const ofVec4f& cur = history[i];
             const ofVec4f& last = history[i-1];
             ofVec3f curPos(cur[0], cur[1], cur[2]);
             ofVec3f lastPos(last[0], last[1], last[2]);
-            
+
             ofVec3f perp0 = curPos - lastPos;
             ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
             //ofVec3f perp2 = perp0.cross(perp1);
             //perp1 = perp0.cross(perp2).normalized();
             float offWidth = (radius * cur[3] * per * 0.8f);
-            float opacityScale = c.a/255.0f*back[3]*per;
-            
+            float opacityScale = color.a/255.0f*back[3]*per;
+
             if (per > 0.8f) {
                 float temp = (1.0f - per) / 0.2f;
                 float tempScale = sqrt(temp);
                 offWidth *= tempScale;
                 opacityScale *= tempScale;
             }
-            
+
             ofVec3f off = perp1 * offWidth;
-            
-            glColor4f(c.r/255.0f, c.g/255.0f, c.b/255.0f, opacityScale);
+
+            glColor4f(color.r/255.0f, color.g/255.0f, color.b/255.0f, opacityScale);
 
             ofVec3f vecA = curPos - off;
             ofVec3f vecB = curPos + off;

@@ -39,8 +39,12 @@ class ofxParticle
         void update(const float timeStep, const float drag);
             
         void draw();
+        void drawVertex();
+        void drawVertex(ofColor color_);
+        void drawHistory();
         void draw(ofTexture & tex);
-            
+
+    
         bool isAlive();
     
         ofVec4f position;
