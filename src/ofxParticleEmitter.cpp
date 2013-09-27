@@ -16,6 +16,7 @@ ofxParticleEmitter::ofxParticleEmitter()
 , lifeSpread(0.0f)
 , particleMaxHistoryLength(0)
 , numPars(1)
+, texID(0)
 , color(255, 255, 255, 255)
 , colorSpread(0, 0, 0, 0)
 {

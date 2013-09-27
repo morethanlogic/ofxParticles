@@ -47,7 +47,9 @@ class ofxParticleEmitter
         int particleMaxHistoryLength;
     
         int numPars;
-        
+    
+        int texID;
+    
         ofColor color;
         ofColor colorSpread;
 };

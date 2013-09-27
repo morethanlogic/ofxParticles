@@ -25,6 +25,7 @@ ofxParticle::ofxParticle()
     size = 1.0;
     lifeStart = life = 1.0;
     particleID = 0;
+    texID = 0;
     dt = 1.0/60;
     
     history.push_back(position);
@@ -43,6 +44,7 @@ ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_, int
     maxHistoryLength = maxHistoryLength_;
     lifeStart = life = MAX(1.0, life_);
     particleID = 0;
+    texID = 0;
     dt = 1.0/60;
 }
 
@@ -60,6 +62,7 @@ ofxParticle::ofxParticle(const ofxParticle &mom)
     life = mom.life;
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
+    texID = 0;
     dt = 1.0f / 60.0f;
 }
 

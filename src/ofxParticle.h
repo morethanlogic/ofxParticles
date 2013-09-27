@@ -60,6 +60,7 @@ class ofxParticle
         int maxHistoryLength;
         float dt;
         int particleID;
+        int texID;
     
     private:
         deque<ofVec4f> history;
