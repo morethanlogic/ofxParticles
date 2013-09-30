@@ -253,7 +253,9 @@ void ofxParticle::drawHistory()
         float temp = static_cast<float>((size-MIN_RADIUS)/(MAX_RADIUS-MIN_RADIUS));
         float radius = size * back[3];
 
-        glBegin(GL_QUAD_STRIP);
+        //glBegin(GL_QUAD_STRIP);
+        ofSetLineWidth(4.0f);
+        glBegin(GL_LINE_STRIP);
         float total = history.size();
         for (int i = history.size()-1; i>0; i--) {
             float per = i / total;
@@ -281,12 +283,14 @@ void ofxParticle::drawHistory()
 
             glColor4f(color.r/255.0f, color.g/255.0f, color.b/255.0f, opacityScale);
 
-            ofVec3f vecA = curPos - off;
-            ofVec3f vecB = curPos + off;
+            ofVec3f vecA = curPos;// - off;
+            ofVec3f vecB = curPos;// + off;
             glVertex3f(vecA.x, vecA.y, vecA.z);
             glVertex3f(vecB.x, vecB.y, vecB.z);
         }
         glEnd();
+        
+        ofSetLineWidth(1.0f);
         
     }
 }
