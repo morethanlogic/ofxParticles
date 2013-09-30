@@ -202,7 +202,7 @@ void ofxParticle::update(const float timeStep, const float drag)
     acceleration -= acceleration * dt;
     rotation += rotationalVelocity * dt;
     
-    color.a = life/lifeStart*startColor.a;
+//    color.a = life/lifeStart*startColor.a;
     
     life -= dt;
     if (life < 0) life = 0;
