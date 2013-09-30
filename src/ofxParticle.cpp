@@ -7,7 +7,7 @@
 //
 
 #include "ofxParticle.h"
-
+#include "SMSettings.h"
 
 const float HEAT_SPAWN_AMT = .1f;
 const float HEAT_KILL_THRESHOLD = 0.05f;
@@ -216,8 +216,11 @@ void ofxParticle::update(const float timeStep, const float drag)
 }
 
 //--------------------------------------------------------------
-bool ofxParticle::inView(ofVec4f& pos) {
-    return pos[0] >= 0 && pos[0] <= ofGetWidth() && pos[1] >= 0 && pos[1] <= ofGetHeight() && pos[2] >= 0 && pos[2] < 500.0f;
+bool ofxParticle::inView(ofVec4f& pos)
+{
+    return pos[0] >= kDisplayMinX && pos[0] <= kDisplayMaxX &&
+           pos[1] >= kDisplayMinY && pos[1] <= kDisplayMaxY &&
+           pos[2] >= kDisplayMinZ && pos[2] <= kDisplayMaxZ;
 }
 
 //--------------------------------------------------------------
@@ -265,28 +268,28 @@ void ofxParticle::drawHistory()
             ofVec3f curPos(cur[0], cur[1], cur[2]);
             ofVec3f lastPos(last[0], last[1], last[2]);
 
-            ofVec3f perp0 = curPos - lastPos;
-            ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
+//            ofVec3f perp0 = curPos - lastPos;
+//            ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
             //ofVec3f perp2 = perp0.cross(perp1);
             //perp1 = perp0.cross(perp2).normalized();
-            float offWidth = (radius * cur[3] * per * 0.8f);
+//            float offWidth = (radius * cur[3] * per * 0.8f);
             float opacityScale = color.a/255.0f*back[3]*per;
 
             if (per > 0.8f) {
                 float temp = (1.0f - per) / 0.2f;
                 float tempScale = sqrt(temp);
-                offWidth *= tempScale;
+//                offWidth *= tempScale;
                 opacityScale *= tempScale;
             }
-
-            ofVec3f off = perp1 * offWidth;
+//
+//            ofVec3f off = perp1 * offWidth;
 
             glColor4f(color.r/255.0f, color.g/255.0f, color.b/255.0f, opacityScale);
 
             ofVec3f vecA = curPos;// - off;
-            ofVec3f vecB = curPos;// + off;
+//            ofVec3f vecB = curPos;// + off;
             glVertex3f(vecA.x, vecA.y, vecA.z);
-            glVertex3f(vecB.x, vecB.y, vecB.z);
+//            glVertex3f(vecB.x, vecB.y, vecB.z);
         }
         glEnd();
         
