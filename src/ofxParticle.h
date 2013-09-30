@@ -35,7 +35,7 @@ class ofxParticle
         
         void rotateAround(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle);
         void rotateAround(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle);
-            
+        
         void update(const float timeStep, const float drag);
             
         void draw();

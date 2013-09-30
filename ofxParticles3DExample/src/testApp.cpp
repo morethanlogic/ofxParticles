@@ -152,7 +152,7 @@ void testApp::draw()
     
     // Draw info.
     ofSetColor(255, 255, 255);
-    ofDrawBitmapString(ofToString(particleSystem.getNumParticles()) + " particles" +
+    ofDrawBitmapString(ofToString(particleSystem.numParticles) + " particles" +
                        "\n" + ofToString(ofGetFrameRate()) + " fps" +
                        "\n(G/g) gravitation: " + ofToString(gravAcc) +
                        "\n(R/r) rotational acceleration: " + ofToString(rotAcc) +

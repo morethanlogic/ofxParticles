@@ -197,7 +197,7 @@ void ofxParticle::update(const float timeStep, const float drag)
     
     dt = timeStep;
     velocity += acceleration * dt;
-    velocity -= (velocity * dt * (1.0-drag));
+    velocity -= (velocity * dt * (1.0 - drag));
     position += velocity * dt;
     acceleration -= acceleration * dt;
     rotation += rotationalVelocity * dt;

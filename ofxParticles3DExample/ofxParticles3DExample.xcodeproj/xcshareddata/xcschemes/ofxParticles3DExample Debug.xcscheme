@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "ofxParticlesExample.app"
+               BuildableName = "ofxParticles3DExample.app"
                BlueprintName = "ofxParticles3DExample"
                ReferencedContainer = "container:ofxParticles3DExample.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ofxParticlesExample.app"
+            BuildableName = "ofxParticles3DExample.app"
             BlueprintName = "ofxParticles3DExample"
             ReferencedContainer = "container:ofxParticles3DExample.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ofxParticlesExample.app"
+            BuildableName = "ofxParticles3DExample.app"
             BlueprintName = "ofxParticles3DExample"
             ReferencedContainer = "container:ofxParticles3DExample.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ofxParticlesExample.app"
+            BuildableName = "ofxParticles3DExample.app"
             BlueprintName = "ofxParticles3DExample"
             ReferencedContainer = "container:ofxParticles3DExample.xcodeproj">
          </BuildableReference>
