@@ -58,6 +58,7 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
         }
         par->color = pColor;
         par->startColor = par->color;
+        par->trailThickness = src.particleTrailThickness;
         par->texID = src.texID;
         particles.push_back(par);
     }

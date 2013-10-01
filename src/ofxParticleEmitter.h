@@ -46,6 +46,7 @@ class ofxParticleEmitter
         float lifeSpread;
     
         int particleMaxHistoryLength;
+        float particleTrailThickness;
     
         int numPars;
     
