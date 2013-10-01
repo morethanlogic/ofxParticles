@@ -10,6 +10,8 @@
 
 #include "ofMain.h"
 
+#include "ofxParticle.h"
+
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 class ofxParticleEmitter
@@ -17,6 +19,9 @@ class ofxParticleEmitter
     public:
         ofxParticleEmitter();
         ~ofxParticleEmitter();
+    
+        list<ofxParticle *> emit();
+    
         ofVec3f position;
         ofVec3f posSpread;
         

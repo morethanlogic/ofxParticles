@@ -9,12 +9,6 @@
 #include "ofxParticleSystem.h"
 
 //--------------------------------------------------------------
-inline ofVec3f ofRandVec3f()
-{
-    return ofVec3f(ofRandomf(), ofRandomf(), ofRandomf()).normalize().scale(ofRandomf());
-}
-
-//--------------------------------------------------------------
 ofxParticleSystem::ofxParticleSystem()
 : numParticles(0)
 , totalParticlesEmitted(0)
@@ -29,37 +23,12 @@ ofxParticleSystem::~ofxParticleSystem()
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::addParticles(ofxParticleEmitter& src)
+void ofxParticleSystem::addParticles(ofxParticleEmitter& emitter)
 {
-    for (int i = 0; i < src.numPars; i++) {
-        ofVec3f pos = src.positionStart;
-        ofVec3f vel = src.velocityStart;
-        if (src.positionEnd != src.positionStart || src.velocityStart != src.velocityEnd) {
-            float rf = ofRandomuf();
-            pos = src.positionStart.interpolated(src.positionEnd, rf);
-            vel = src.velocityStart.interpolated(src.velocityEnd, rf);
-        }
-        ofVec3f p = pos + ofRandVec3f() * src.posSpread;
-        ofVec3f v = vel + ofRandVec3f() * src.velSpread;
-        float s = src.size + ofRandomf() * src.sizeSpread;
-        float l = src.life + ofRandomf() * src.lifeSpread;
-        ofxParticle * par = new ofxParticle(p,v,s,l);
-        par->rotation = src.rotation+ofRandVec3f()*src.rotSpread;
-        par->rotationalVelocity = src.rotVel+ofRandVec3f()*src.rotVelSpread;
-        par->particleID = totalParticlesEmitted + i;
-        ofColor pColor = src.color;
-        if (src.colorSpread != ofColor(0, 0, 0, 0)) {
-            pColor.r = ofClamp(pColor.r + ofRandomf() * src.colorSpread.r, 0, 255);
-            pColor.g = ofClamp(pColor.g + ofRandomf() * src.colorSpread.g, 0, 255);
-            pColor.b = ofClamp(pColor.b + ofRandomf() * src.colorSpread.b, 0, 255);
-            pColor.a = ofClamp(pColor.a + ofRandomf() * src.colorSpread.a, 0, 255);
-        }
-        par->color = pColor;
-        particles.push_back(par);
-    }
-    
-    numParticles += src.numPars;
-    totalParticlesEmitted += src.numPars;
+    list<ofxParticle *> newPars = emitter.emit();
+    particles.splice(particles.end(), newPars);
+    numParticles += emitter.numPars;
+    totalParticlesEmitted += emitter.numPars;
 }
 
 //--------------------------------------------------------------
