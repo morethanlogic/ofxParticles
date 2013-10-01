@@ -256,8 +256,7 @@ void ofxParticle::drawHistory()
         float temp = static_cast<float>((size-MIN_RADIUS)/(MAX_RADIUS-MIN_RADIUS));
         float radius = size * back[3];
 
-        //glBegin(GL_QUAD_STRIP);
-        ofSetLineWidth(4.0f);
+        ofSetLineWidth(trailThickness);
         glBegin(GL_LINE_STRIP);
         float total = history.size();
         for (int i = history.size()-1; i>0; i--) {
@@ -268,28 +267,18 @@ void ofxParticle::drawHistory()
             ofVec3f curPos(cur[0], cur[1], cur[2]);
             ofVec3f lastPos(last[0], last[1], last[2]);
 
-//            ofVec3f perp0 = curPos - lastPos;
-//            ofVec3f perp1 = perp0.cross(ofVec3f(.0f, .0f, 1.0f));
-            //ofVec3f perp2 = perp0.cross(perp1);
-            //perp1 = perp0.cross(perp2).normalized();
-//            float offWidth = (radius * cur[3] * per * 0.8f);
             float opacityScale = color.a/255.0f*back[3]*per;
 
             if (per > 0.8f) {
                 float temp = (1.0f - per) / 0.2f;
                 float tempScale = sqrt(temp);
-//                offWidth *= tempScale;
                 opacityScale *= tempScale;
             }
-//
-//            ofVec3f off = perp1 * offWidth;
 
-            glColor4f(color.r/255.0f, color.g/255.0f, color.b/255.0f, opacityScale);
+            glColor4f(color.r/255.0f, color.g/255.0f, color.b/255.0f, life/lifeStart*opacityScale);
 
-            ofVec3f vecA = curPos;// - off;
-//            ofVec3f vecB = curPos;// + off;
+            ofVec3f vecA = curPos;
             glVertex3f(vecA.x, vecA.y, vecA.z);
-//            glVertex3f(vecB.x, vecB.y, vecB.z);
         }
         glEnd();
         

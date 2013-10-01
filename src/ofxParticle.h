@@ -52,7 +52,7 @@ class ofxParticle
         ofVec3f acceleration; // pixels/sec/sec
         ofColor color;
         ofColor startColor;
-
+        float trailThickness;
     
         ofVec3f rotation;
         ofVec3f rotationalVelocity;
