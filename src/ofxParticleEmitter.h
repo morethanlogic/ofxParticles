@@ -16,21 +16,11 @@ class ofxParticleEmitter
 {
     public:
         ofxParticleEmitter();
-    
         ~ofxParticleEmitter();
-        
-        void setPosition(const ofVec3f& pos);
-        void setPosition(const ofVec3f& posStart, const ofVec3f& posEnd);
-        
-        void setVelocity(const ofVec3f& vel);
-        void setVelocity(const ofVec3f& velStart, const ofVec3f& velEnd);
-        
-        ofVec3f positionStart;
-        ofVec3f positionEnd;
+        ofVec3f position;
         ofVec3f posSpread;
         
-        ofVec3f velocityStart;
-        ofVec3f velocityEnd;
+        ofVec3f velocity;
         ofVec3f velSpread;
         
         ofVec3f rotation;

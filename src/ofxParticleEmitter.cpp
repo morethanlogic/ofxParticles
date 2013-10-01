@@ -28,27 +28,5 @@ ofxParticleEmitter::~ofxParticleEmitter()
 }
 
 //--------------------------------------------------------------
-void ofxParticleEmitter::setPosition(const ofVec3f& pos)
 {
-    positionStart = positionEnd = pos;
-}
-
-//--------------------------------------------------------------
-void ofxParticleEmitter::setPosition(const ofVec3f& posStart, const ofVec3f& posEnd)
-{
-    positionStart = posStart;
-    positionEnd = posEnd;
-}
-
-//--------------------------------------------------------------
-void ofxParticleEmitter::setVelocity(const ofVec3f& vel)
-{
-    velocityStart = velocityEnd = vel;
-}
-
-//--------------------------------------------------------------
-void ofxParticleEmitter::setVelocity(const ofVec3f& velStart, const ofVec3f& velEnd)
-{
-    velocityStart = velStart;
-    velocityEnd = velEnd;
 }

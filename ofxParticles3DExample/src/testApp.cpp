@@ -12,6 +12,8 @@ void testApp::setup()
     
     centerPt.set(0, 0, 0);
     
+    const float velVal = 150.0;
+    
     mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
     mouseEmitter.life = 10.0f;
     mouseEmitter.lifeSpread = 5.0f;
@@ -20,8 +22,8 @@ void testApp::setup()
     mouseEmitter.colorSpread = ofColor(20, 20, 0);
     mouseEmitter.size = 32.0f;
     
-    leftEmitter.setPosition(ofVec3f(kBoxSize * -0.5, kBoxSize * -0.5, kBoxSize * 0.5));
-    leftEmitter.setVelocity(ofVec3f(150.0, 150.0, -150.0));
+    leftEmitter.position.set(kBoxSize * -0.5, kBoxSize * -0.5, kBoxSize * 0.5);
+    leftEmitter.velocity.set(velVal, velVal, -velVal);
     leftEmitter.posSpread = ofVec3f(10, 10, 10);
     leftEmitter.velSpread = ofVec3f(10.0,10);
     leftEmitter.life = 20;
@@ -32,20 +34,20 @@ void testApp::setup()
     leftEmitter.size = 32;
     
     rightEmitter = leftEmitter;
-    rightEmitter.setPosition(ofVec3f(kBoxSize * 0.5, kBoxSize * -0.5, kBoxSize * -0.5));
-    rightEmitter.setVelocity(ofVec3f(-150.0, 150.0, 150.0));
+    rightEmitter.position.set(kBoxSize * 0.5, kBoxSize * -0.5, kBoxSize * -0.5);
+    rightEmitter.velocity.set(-velVal, velVal, velVal);
     rightEmitter.color = ofColor(100, 100, 200);
     rightEmitter.colorSpread = ofColor(50, 50, 50);
 
     topEmitter = leftEmitter;
-    topEmitter.setPosition(ofVec3f(kBoxSize * -0.5, kBoxSize * 0.5, kBoxSize * -0.5));
-    topEmitter.setVelocity(ofVec3f(150.0, -150.0, 150.0));
+    topEmitter.position.set(kBoxSize * -0.5, kBoxSize * 0.5, kBoxSize * -0.5);
+    topEmitter.velocity.set(velVal, -velVal, velVal);
     topEmitter.color = ofColor(100, 200, 100);
     topEmitter.colorSpread = ofColor(50, 50, 50);
 
     botEmitter = leftEmitter;
-    botEmitter.setPosition(ofVec3f(kBoxSize * 0.5, kBoxSize * 0.5, kBoxSize * 0.5));
-    botEmitter.setVelocity(ofVec3f(-150.0, -150.0, -150.0));
+    botEmitter.position.set(kBoxSize * 0.5, kBoxSize * 0.5, kBoxSize * 0.5);
+    botEmitter.velocity.set(-velVal, -velVal, -velVal);
     botEmitter.color = ofColor(200, 200, 0);
     botEmitter.colorSpread = ofColor(50, 50, 0);
     
@@ -97,9 +99,10 @@ void testApp::update()
     mouseVel = mousePos - prevMousePos;
     mouseVel *= 20.0f;
     if (ofGetMousePressed(0)) {
-        mouseEmitter.setPosition(prevMousePos, mousePos);
-        mouseEmitter.posSpread = ofVec3f(10.0f, 10.0f, 0.0f);
-        mouseEmitter.setVelocity(prevMouseVel, mouseVel);
+        mouseEmitter.position.set(mousePos);
+        mouseEmitter.posSpread.set(mousePos - prevMousePos);
+        mouseEmitter.velocity.set(mouseVel);
+        mouseEmitter.velSpread.set(mouseVel - prevMouseVel);
         particleSystem.addParticles(mouseEmitter);
     }
     prevMousePos = mousePos;
