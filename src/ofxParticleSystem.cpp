@@ -75,7 +75,7 @@ void ofxParticleSystem::applyVectorField(float * field, int fieldWidth, int fiel
             int y = (int)ofMap(pos2D.y, areaOfInfluence.getMinY(), areaOfInfluence.getMaxY(), 0, fieldHeight - 1);
             int index = (x + y * fieldWidth) * numComponents;
             ofVec2f dir(field[index], field[index + 1]);
-            dir.scale(force);
+            dir.scale(force * it->dt);
             it->applyForce(dir);
         }
     }

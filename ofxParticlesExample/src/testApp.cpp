@@ -10,15 +10,15 @@ void testApp::setup()
     
     centerPt.set(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f);
     
-    gravitation.setup(centerPt, 200.0f, 50.0f, 25.0f, false);
+    gravitation.setup(centerPt, 2000.0f, 500.0f, 25.0f, false);
 
-    attraction.setup(centerPt, 100.0f, 50.0f, 10.0f, false);
+    attraction.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
     attraction.bEnabled = false;
     
-    repulsion.setup(centerPt, 100.0f, 50.0f, 10.0f, false);
+    repulsion.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
     repulsion.bEnabled = false;
     
-    rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 5.0f, 100.0f);
+    rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 100.0f, 100.0f);
     
     mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
     mouseEmitter.life = 10.0f;
@@ -65,7 +65,7 @@ void testApp::setup()
     
     // Set parameter defaults.
     drag = 0.5;
-    fieldMult = 5.0f;
+    fieldMult = 100.0f;
     displayMode = 0;
 }
 

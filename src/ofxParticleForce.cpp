@@ -24,7 +24,7 @@ void ofxParticleForce::setup(const ofVec3f& position, float strength)
 //--------------------------------------------------------------
 void ofxParticleForce::apply(ofxParticle * p, const ofVec3f& force)
 {
-    p->acceleration += force;
+    p->acceleration += force * p->dt;
 }
 
 //--------------------------------------------------------------
