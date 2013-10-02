@@ -20,7 +20,7 @@ class ofxParticleRotation : public ofxParticleForce
         ofxParticleRotation();
         void setup(const ofVec3f& position, float strength, float maxDist, float minDist = 10.0f, float bConsumeParticle = false);
         void apply(ofxParticle * p);
-        void debug();
+        void debugDraw(int r = 0, int g = 0, int b = 200);
         
         float maxDist;
         float minDist;

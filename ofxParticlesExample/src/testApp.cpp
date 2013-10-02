@@ -108,22 +108,19 @@ void testApp::draw()
 {
     if (ofGetKeyPressed('v')) {
         ofSetColor(80, 80, 80);
-        vectorField.debug();
+        vectorField.debugDraw();
     }
     
     // Draw forces.
     ofNoFill();
-    ofSetColor(255, 0, 0, 50);
-    gravitation.debug();
-    ofSetColor(0, 0, 255, 50);
-    rotation.debug();
+    ofSetLineWidth(1.0);
+    gravitation.debugDraw();
+    rotation.debugDraw();
     if (attraction.bEnabled) {
-        ofSetColor(0, 255, 0, 50);
-        attraction.debug();
+        attraction.debugDraw();
     }
     if (repulsion.bEnabled) {
-        ofSetColor(255, 255, 0, 50);
-        repulsion.debug();
+        repulsion.debugDraw();
     }
     
     // Draw system.

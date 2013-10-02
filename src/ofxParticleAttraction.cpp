@@ -49,9 +49,11 @@ void ofxParticleAttraction::apply(ofxParticle * p)
 }
 
 //--------------------------------------------------------------
-void ofxParticleAttraction::debug()
+void ofxParticleAttraction::debugDraw(int r, int g, int b)
 {
-    ofxParticleForce::debug();
+    ofxParticleForce::debugDraw(r, g, b, 128);
+    ofSetColor(r, g, b);
+    ofNoFill();
     ofCircle(position, minDist);
     ofCircle(position, maxDist);
 }

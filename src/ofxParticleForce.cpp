@@ -28,7 +28,8 @@ void ofxParticleForce::apply(ofxParticle * p, const ofVec3f& force)
 }
 
 //--------------------------------------------------------------
-void ofxParticleForce::debug()
+void ofxParticleForce::debugDraw(int r, int g, int b, int a)
 {
+    ofSetColor(r, g, b, a);
     ofCircle(position, sqrt(strength));
 }

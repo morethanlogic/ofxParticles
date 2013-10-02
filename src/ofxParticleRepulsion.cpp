@@ -49,9 +49,10 @@ void ofxParticleRepulsion::apply(ofxParticle * p)
 }
 
 //--------------------------------------------------------------
-void ofxParticleRepulsion::debug()
+void ofxParticleRepulsion::debugDraw(int r, int g, int b)
 {
-    ofxParticleForce::debug();
+    ofxParticleForce::debugDraw(r, g, b, 128);
+    ofSetColor(r, g, b);
     ofCircle(position, minDist);
     ofCircle(position, maxDist);
 }

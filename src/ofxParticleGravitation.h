@@ -20,7 +20,7 @@ class ofxParticleGravitation : public ofxParticleForce
         ofxParticleGravitation();
         void setup(const ofVec3f& position, float gravity, float mass, float minDist = 10.0f, float bConsumeParticle = false);
         void apply(ofxParticle * p);
-        void debug();
+        void debugDraw(int r = 200, int g = 0, int b = 0);
     
         float mass;
         float minDist;

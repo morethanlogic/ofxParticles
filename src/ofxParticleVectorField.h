@@ -21,8 +21,8 @@ class ofxParticleVectorField : public ofxParticleForce
         void setup(const ofRectangle& roi, float strength, int width = 128, int height = 128, int numChannels = 3);
         void update();
         void apply(ofxParticle * p);
-        void debug();
-        
+        void debugDraw(int r = 80, int g = 80, int b = 80);
+    
         ofFloatPixels field;
         ofRectangle roi;
 };

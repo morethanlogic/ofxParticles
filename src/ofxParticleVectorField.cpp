@@ -53,8 +53,9 @@ void ofxParticleVectorField::apply(ofxParticle * p)
 }
 
 //--------------------------------------------------------------
-void ofxParticleVectorField::debug()
+void ofxParticleVectorField::debugDraw(int r, int g, int b)
 {
+    ofSetColor(r, g, b);
     ofPushMatrix();
     {
         ofScale(ofGetWidth() / (float)field.getWidth(), ofGetHeight() / (float)field.getHeight());

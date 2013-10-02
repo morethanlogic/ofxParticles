@@ -45,8 +45,9 @@ void ofxParticleGravitation::apply(ofxParticle * p)
 }
 
 //--------------------------------------------------------------
-void ofxParticleGravitation::debug()
+void ofxParticleGravitation::debugDraw(int r, int g, int b)
 {
-    ofxParticleForce::debug();
+    ofxParticleForce::debugDraw(r, g, b, 128);
+    ofSetColor(r, g, b);
     ofCircle(position, minDist);
 }

@@ -21,7 +21,7 @@ class ofxParticleForce
         void setup(const ofVec3f& position, float strength);
         void apply(ofxParticle * p, const ofVec3f& force);
         virtual void apply(ofxParticle * p) = 0;
-        virtual void debug();
+        virtual void debugDraw(int r, int g, int b, int a = 255);
     
         ofVec3f position;
         float strength;
