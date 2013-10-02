@@ -25,27 +25,15 @@ class ofxParticle
 
         ofxParticle& operator = (const ofxParticle& mom);
         
-        void applyForce(const ofVec3f& force);
-    
-        void attractTo(const ofxParticle& p, float strength, float radius = 0, float consumeDist = -1);
-        void attractTo(const ofPoint& pt, float strength, float radius = 0, float consumeDist = -1);
-            
-        void gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsume = false);
-        void gravitateTo(const ofPoint& pt, float mass2, float gravity, float minDist, bool bConsume = false);
-        
-        void rotateAround(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle);
-        void rotateAround(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle);
-        
         virtual void update(const float timeStep, const float drag);
             
         virtual void draw();
-        virtual void draw(ofTexture & tex);
             
         bool isAlive();
     
-        ofVec3f position;
-        ofVec3f velocity; // pixels/sec
-        ofVec3f acceleration; // pixels/sec/sec
+        ofVec3f position;       // pixels
+        ofVec3f velocity;       // pixels/sec
+        ofVec3f acceleration;   // pixels/sec/sec
         ofColor color;
         
         ofVec3f rotation;

@@ -21,7 +21,6 @@ class ofxParticleSystem
 {
     public:
         ofxParticleSystem();
-        
         ~ofxParticleSystem();
     
         void addParticles(ofxParticleEmitter& emitter);
@@ -31,8 +30,6 @@ class ofxParticleSystem
         int update(float timeStep, float drag);
         
         void draw();
-        void draw(ofTexture& tex);
-        void draw(ofTexture& tex, ofTexture& tex2);
     
         list<ofxParticle *> particles;
         int numParticles;

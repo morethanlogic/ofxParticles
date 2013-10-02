@@ -66,25 +66,3 @@ void ofxParticleSystem::draw()
         it->draw();
     }
 }
-
-//--------------------------------------------------------------
-void ofxParticleSystem::draw(ofTexture& tex)
-{
-    for (auto& it : particles) {
-        it->draw(tex);
-    }
-}
-
-//--------------------------------------------------------------
-void ofxParticleSystem::draw(ofTexture& tex, ofTexture& tex2)
-{
-    for (auto& it : particles) {
-        int index = it->particleID;
-        if(index % 2 == 0) {
-            it->draw(tex);
-        }
-        else {
-            it->draw(tex2);
-        }
-    }
-}
