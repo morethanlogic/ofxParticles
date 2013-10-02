@@ -26,6 +26,8 @@ class ofxParticleEmitter
         ofxParticleEmitter();
         ~ofxParticleEmitter();
     
+        virtual void debugDraw(int r = 0, int g = 0, int b = 200);
+
         virtual list<ofxParticle *> emit();
     
         ofVec3f position;
