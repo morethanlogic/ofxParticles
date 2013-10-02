@@ -14,3 +14,4 @@
 #include "ofxParticleRepulsion.h"
 #include "ofxParticleRotation.h"
 #include "ofxParticleSystem.h"
+#include "ofxParticleVectorField.h"

@@ -34,8 +34,8 @@ class testApp : public ofBaseApp
         ofxParticleAttraction attraction;
         ofxParticleRepulsion repulsion;
         ofxParticleRotation rotation;
-        float fieldMult, drag;
-        ofFloatPixels vectorField;
+        ofxParticleVectorField vectorField;
+        float drag;
         
         ofTexture pTex, p1Tex, p2Tex;
         int displayMode;

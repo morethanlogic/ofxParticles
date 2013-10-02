@@ -27,7 +27,6 @@ class ofxParticleSystem
         void addParticles(ofxParticleEmitter& emitter);
     
         void applyForce(ofxParticleForce& force);
-        void applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force);
         
         int update(float timeStep, float drag);
         

@@ -15,6 +15,7 @@
 		649B93E717FB8573004CB0BF /* ofxParticleAttraction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93E617FB8573004CB0BF /* ofxParticleAttraction.cpp */; };
 		649B93EA17FB93D5004CB0BF /* ofxParticleRepulsion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */; };
 		649B93ED17FB9652004CB0BF /* ofxParticleRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */; };
+		649B93F017FBA406004CB0BF /* ofxParticleVectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93EF17FBA406004CB0BF /* ofxParticleVectorField.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -85,6 +86,8 @@
 		649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleRepulsion.cpp; sourceTree = "<group>"; };
 		649B93EB17FB9643004CB0BF /* ofxParticleRotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleRotation.h; sourceTree = "<group>"; };
 		649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleRotation.cpp; sourceTree = "<group>"; };
+		649B93EE17FBA3FC004CB0BF /* ofxParticleVectorField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleVectorField.h; sourceTree = "<group>"; };
+		649B93EF17FBA406004CB0BF /* ofxParticleVectorField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleVectorField.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -159,6 +162,8 @@
 				649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */,
 				6468527E17E9220B00CFE9DF /* ofxParticleSystem.h */,
 				6468527F17E9221500CFE9DF /* ofxParticleSystem.cpp */,
+				649B93EE17FBA3FC004CB0BF /* ofxParticleVectorField.h */,
+				649B93EF17FBA406004CB0BF /* ofxParticleVectorField.cpp */,
 			);
 			name = src;
 			path = ../src;
@@ -356,6 +361,7 @@
 				649B93E717FB8573004CB0BF /* ofxParticleAttraction.cpp in Sources */,
 				649B93EA17FB93D5004CB0BF /* ofxParticleRepulsion.cpp in Sources */,
 				649B93ED17FB9652004CB0BF /* ofxParticleRotation.cpp in Sources */,
+				649B93F017FBA406004CB0BF /* ofxParticleVectorField.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

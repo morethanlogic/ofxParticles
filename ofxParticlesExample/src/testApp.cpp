@@ -20,6 +20,8 @@ void testApp::setup()
     
     rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 100.0f, 100.0f);
     
+    vectorField.setup(ofGetWindowRect(), 100.0f, 128, 128, 3);
+    
     mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
     mouseEmitter.life = 10.0f;
     mouseEmitter.lifeSpread = 5.0f;
@@ -57,40 +59,29 @@ void testApp::setup()
     botEmitter.color = ofColor(200, 200, 0);
     botEmitter.colorSpread = ofColor(50, 50, 0);
     
-    vectorField.allocate(128, 128, 3);
-    
     ofLoadImage(pTex, "p.png");
     ofLoadImage(p1Tex, "p1.png");
     ofLoadImage(p2Tex, "p2.png");
     
     // Set parameter defaults.
     drag = 0.5;
-    fieldMult = 100.0f;
     displayMode = 0;
 }
 
 //--------------------------------------------------------------
 void testApp::update()
 {    
-    // Update vector field.
-    for (int y = 0; y < vectorField.getHeight(); y++) {
-        for (int x = 0; x< vectorField.getWidth(); x++) {
-            int index = vectorField.getPixelIndex(x, y);
-            float angle = ofNoise(x / (float)vectorField.getWidth() * 4.0f, y / (float)vectorField.getHeight() * 4.0f, ofGetElapsedTimef() * 0.05f) * TWO_PI * 2.0f;
-            ofVec2f dir(cos(angle), sin(angle));
-            dir.normalize().scale(ofNoise(x / (float)vectorField.getWidth() * 4.0f, y / (float)vectorField.getHeight() * 4.0f, ofGetElapsedTimef() * 0.05 + 10.0f));
-            vectorField.setColor(x, y, ofColor_<float>(dir.x, dir.y, 0.0f));
-        }
-    }
+    vectorField.update();
     
     // Add forces.
     float dt = MIN(ofGetLastFrameTime(), 1.0f / 10.0f);
     
     particleSystem.applyForce(gravitation);
-    particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
+    particleSystem.applyForce(vectorField);
+    particleSystem.applyForce(rotation);
     particleSystem.applyForce(attraction);
     particleSystem.applyForce(repulsion);
-    particleSystem.applyForce(rotation);
+    
     particleSystem.update(dt, drag);
     
     particleSystem.addParticles(leftEmitter);
@@ -116,21 +107,8 @@ void testApp::update()
 void testApp::draw()
 {
     if (ofGetKeyPressed('v')) {
-        // Draw vector field.
-        ofSetLineWidth(1.0f);
         ofSetColor(80, 80, 80);
-        ofPushMatrix();
-        {
-            ofScale(ofGetWidth() / (float)vectorField.getWidth(), ofGetHeight() / (float)vectorField.getHeight());
-            for (int y = 0; y < vectorField.getHeight(); y++) {
-                for (int x = 0; x< vectorField.getWidth(); x++) {
-                    ofColor_<float> c = vectorField.getColor(x, y);
-                    ofVec2f dir(c.r, c.g);
-                    ofLine(x, y, x + dir.x, y + dir.y);
-                }
-            }
-        }
-        ofPopMatrix();
+        vectorField.debug();
     }
     
     // Draw forces.
@@ -167,7 +145,7 @@ void testApp::draw()
                        "\n(G/g) gravity: " + ofToString(gravitation.strength) +
                        "\n(R/r) rotation: " + ofToString(rotation.strength) +
                        "\n(M/m) mouse attraction/repulsion: " + ofToString(attraction.strength) +
-                       "\n(F/f) vector field multiplier: " + ofToString(fieldMult) +
+                       "\n(F/f) vector field multiplier: " + ofToString(vectorField.strength) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
                        "\n(v) show vector field" +
                        "\n(1-3) particle display modes",
@@ -212,11 +190,11 @@ void testApp::keyPressed(int key){
             if(drag > 1.0) drag = 1.0;
             break;
         case 'f':
-            if(fieldMult > 0.1)
-                fieldMult /= 1.1;
+            if (vectorField.strength > 0.1)
+                vectorField.strength /= 1.1;
             break;
         case 'F':
-            fieldMult *= 1.1;
+            vectorField.strength *= 1.1;
             break;
         case '1':
             displayMode = 0;
@@ -275,6 +253,8 @@ void testApp::mouseReleased(int x, int y, int button)
 void testApp::windowResized(int w, int h)
 {
     centerPt.set(w * 0.5f, h * 0.5f);
+    
+    vectorField.roi.set(ofRectangle(0, 0, w, h));
 
     leftEmitter.position.set(0, h / 3);
     rightEmitter.position.set(w - 1, h * 2 / 3);

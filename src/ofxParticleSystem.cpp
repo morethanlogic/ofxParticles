@@ -42,22 +42,6 @@ void ofxParticleSystem::applyForce(ofxParticleForce& force)
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force)
-{
-    for (auto& it : particles) {
-        ofVec2f pos2D(it->position.x, it->position.y);
-        if (areaOfInfluence.inside(pos2D)) {
-            int x = (int)ofMap(pos2D.x, areaOfInfluence.getMinX(), areaOfInfluence.getMaxX(), 0, fieldWidth - 1);
-            int y = (int)ofMap(pos2D.y, areaOfInfluence.getMinY(), areaOfInfluence.getMaxY(), 0, fieldHeight - 1);
-            int index = (x + y * fieldWidth) * numComponents;
-            ofVec2f dir(field[index], field[index + 1]);
-            dir.scale(force * it->dt);
-            it->applyForce(dir);
-        }
-    }
-}
-
-//--------------------------------------------------------------
 int ofxParticleSystem::update(float timeStep, float drag)
 {
     int particlesRemoved = 0;
