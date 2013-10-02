@@ -36,5 +36,4 @@ class ofxParticleSystem
     
         list<ofxParticle *> particles;
         int numParticles;
-        int totalParticlesEmitted;
 };

@@ -9,6 +9,9 @@
 #include "ofxParticleEmitter.h"
 
 //--------------------------------------------------------------
+int ofxParticleTotalEmitted = 0;
+
+//--------------------------------------------------------------
 ofxParticleEmitter::ofxParticleEmitter()
 : size(1.0f)
 , sizeSpread(0.0f)
@@ -43,7 +46,7 @@ list<ofxParticle *> ofxParticleEmitter::emit()
         
         particle->rotation = rotation + ofRandVec3f() * rotSpread;
         particle->rotationalVelocity = rotVel + ofRandVec3f() * rotVelSpread;
-//        particle->particleID = totalParticlesEmitted + i;
+        particle->particleID = ofxParticleTotalEmitted++;
         particle->emitterID = emitterID;
         
         ofColor col = color;

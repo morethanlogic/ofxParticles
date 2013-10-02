@@ -11,7 +11,6 @@
 //--------------------------------------------------------------
 ofxParticleSystem::ofxParticleSystem()
 : numParticles(0)
-, totalParticlesEmitted(0)
 {
 
 }
@@ -28,7 +27,6 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& emitter)
     list<ofxParticle *> newPars = emitter.emit();
     particles.splice(particles.end(), newPars);
     numParticles += emitter.numPars;
-    totalParticlesEmitted += emitter.numPars;
 }
 
 //--------------------------------------------------------------
