@@ -19,7 +19,7 @@ class ofxParticleRepulsion
 {
     public:
         ofxParticleRepulsion();
-        void setup(const ofVec3f& position, float strength, float maxDist, float minDist = 10.0f, float bConsumeParticle = false);
+        void setup(const ofVec3f& position, float strength, float maxDist = -1.0f, float minDist = 10.0f, float bConsumeParticle = false);
         void apply(ofxParticle * p);
         void debugDraw(int r = 0, int g = 200, int b = 0);
         

@@ -33,7 +33,7 @@ void ofxParticleAttraction::apply(ofxParticle * p)
     
     ofVec3f force = position - p->position;
     float dist = force.length();
-    if (dist > maxDist) {
+    if (maxDist >= 0 && dist > maxDist) {
         return;
     }
     if (dist < minDist) {
@@ -42,7 +42,10 @@ void ofxParticleAttraction::apply(ofxParticle * p)
         }
         return;
     }
-    float pct = 1.0f - (dist / maxDist);  // stronger on the inside
+    float pct = 1.0f;
+    if (maxDist > 0) {
+        pct -= (dist / maxDist);  // stronger on the inside
+    }
     force.normalize().scale(strength * p->mass * pct);
     
     ofxParticleForce::apply(p, force);
