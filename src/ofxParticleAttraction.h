@@ -14,7 +14,8 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-class ofxParticleAttraction : public ofxParticleForce
+class ofxParticleAttraction
+: public ofxParticleForce
 {
     public:
         ofxParticleAttraction();

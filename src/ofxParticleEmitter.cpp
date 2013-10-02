@@ -9,12 +9,6 @@
 #include "ofxParticleEmitter.h"
 
 //--------------------------------------------------------------
-inline ofVec3f ofRandVec3f()
-{
-    return ofVec3f(ofRandomf(), ofRandomf(), ofRandomf()).normalize().scale(ofRandomf());
-}
-
-//--------------------------------------------------------------
 ofxParticleEmitter::ofxParticleEmitter()
 : size(1.0f)
 , sizeSpread(0.0f)

@@ -16,7 +16,7 @@ class ofxParticle
 {
     public:
         ofxParticle();
-        ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_);
+        ofxParticle(ofVec3f position, ofVec3f velocity, float size, float life);
         ofxParticle(const ofxParticle& mom);
         
         ~ofxParticle();

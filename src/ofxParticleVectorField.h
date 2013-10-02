@@ -14,7 +14,8 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-class ofxParticleVectorField : public ofxParticleForce
+class ofxParticleVectorField
+: public ofxParticleForce
 {
     public:
         ofxParticleVectorField();

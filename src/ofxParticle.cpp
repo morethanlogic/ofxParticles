@@ -11,31 +11,32 @@
 //--------------------------------------------------------------
 ofxParticle::ofxParticle()
 {
-    position = velocity = acceleration = ofVec3f(0,0,0);
-    color = ofColor(255,255,255,255);
-    mass = 1.0;
-    size = 1.0;
-    lifeStart = life = 1.0;
+    position = velocity = acceleration = ofVec3f(0, 0, 0);
+    color = ofColor(255, 255, 255, 255);
+    mass = 1.0f;
+    size = 1.0f;
+    lifeStart = life = 1.0f;
     particleID = 0;
-    dt = 1.0/60;
+    dt = 1.0f / 60.0f;
 }
 
 //--------------------------------------------------------------
-ofxParticle::ofxParticle(ofVec3f pos, ofVec3f vel, float size_, float life_)
+ofxParticle::ofxParticle(ofVec3f position, ofVec3f velocity, float size, float life)
 {
-    position = pos;
-    velocity = vel;
-    acceleration = ofVec3f(0,0,0);
-    color = ofColor(255,255,255,255);
+    this->position = position;
+    this->velocity = velocity;
+    this->size = size;
+    this->life = lifeStart = MAX(1.0, life);
+
+    acceleration = ofVec3f(0, 0, 0);
+    color = ofColor(255, 255, 255, 255);
     mass = 1.0;
-    size = size_;
-    lifeStart = life = MAX(1.0, life_);
     particleID = 0;
-    dt = 1.0/60;
+    dt = 1.0f / 60.0f;
 }
 
 //--------------------------------------------------------------
-ofxParticle::ofxParticle(const ofxParticle &mom)
+ofxParticle::ofxParticle(const ofxParticle& mom)
 {
     position = mom.position;
     velocity = mom.velocity;
@@ -182,10 +183,8 @@ void ofxParticle::update(const float timeStep, const float drag)
 //--------------------------------------------------------------
 void ofxParticle::draw()
 {
-    ofColor c = color;
-    c.a = life/lifeStart*color.a;
-    ofSetColor(c);
-    ofLine(position, position-velocity*dt);
+    ofSetColor(color, life / lifeStart * color.a);
+    ofLine(position, position - velocity * dt);
 }
 
 //--------------------------------------------------------------

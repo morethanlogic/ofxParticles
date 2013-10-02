@@ -13,6 +13,12 @@
 #include "ofxParticle.h"
 
 //--------------------------------------------------------------
+inline ofVec3f ofRandVec3f()
+{
+    return ofVec3f(ofRandomf(), ofRandomf(), ofRandomf()).normalize().scale(ofRandomf());
+}
+
+//--------------------------------------------------------------
 //--------------------------------------------------------------
 class ofxParticleEmitter
 {

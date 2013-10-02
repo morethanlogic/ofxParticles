@@ -14,7 +14,8 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-class ofxParticleRotation : public ofxParticleForce
+class ofxParticleRotation
+: public ofxParticleForce
 {
     public:
         ofxParticleRotation();
