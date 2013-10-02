@@ -57,4 +57,5 @@ class ofxParticle
         float lifeStart;
         float dt;
         int particleID;
+        int emitterID;
 };

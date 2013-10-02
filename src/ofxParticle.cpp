@@ -17,6 +17,7 @@ ofxParticle::ofxParticle()
     size = 1.0f;
     lifeStart = life = 1.0f;
     particleID = 0;
+    emitterID = 0;
     dt = 1.0f / 60.0f;
 }
 
@@ -32,6 +33,7 @@ ofxParticle::ofxParticle(ofVec3f position, ofVec3f velocity, float size, float l
     color = ofColor(255, 255, 255, 255);
     mass = 1.0;
     particleID = 0;
+    emitterID = 0;
     dt = 1.0f / 60.0f;
 }
 
@@ -49,6 +51,7 @@ ofxParticle::ofxParticle(const ofxParticle& mom)
     life = mom.life;
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
+    emitterID = mom.emitterID;
     dt = 1.0f / 60.0f;
 }
 
@@ -80,6 +83,7 @@ ofxParticle& ofxParticle::operator = (const ofxParticle& mom)
     life = mom.life;
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
+    emitterID = mom.emitterID;
     dt = 1.0f / 60.0f;
     
     return *this;

@@ -17,6 +17,8 @@ ofxParticleEmitter::ofxParticleEmitter()
 , numPars(1)
 , color(255, 255, 255, 255)
 , colorSpread(0, 0, 0, 0)
+, emitterID(0)
+, bEnabled(true)
 {
 
 }
@@ -42,6 +44,7 @@ list<ofxParticle *> ofxParticleEmitter::emit()
         particle->rotation = rotation + ofRandVec3f() * rotSpread;
         particle->rotationalVelocity = rotVel + ofRandVec3f() * rotVelSpread;
 //        particle->particleID = totalParticlesEmitted + i;
+        particle->emitterID = emitterID;
         
         ofColor col = color;
         if (colorSpread != ofColor(0, 0, 0, 0)) {
