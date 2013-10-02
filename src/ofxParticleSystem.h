@@ -24,13 +24,9 @@ class ofxParticleSystem
         
         ~ofxParticleSystem();
     
-        void applyForce(ofxParticleForce& force);
-    
-        void attractTo(const ofPoint& pt, float strength, float radius = 0, float consumeDistance = 0);
-        void gravitateTo(const ofPoint& pt, float mass, float gravity, float minDist, bool bConsume = false);
         void addParticles(ofxParticleEmitter& emitter);
     
-        void rotateAround(const ofPoint& pt, float acc, float minDist, float bConsumeParticle);
+        void applyForce(ofxParticleForce& force);
         void applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force);
         
         int update(float timeStep, float drag);

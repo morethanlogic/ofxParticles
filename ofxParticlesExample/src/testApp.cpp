@@ -166,6 +166,7 @@ void testApp::draw()
                        "\n" + ofToString(ofGetFrameRate()) + " fps" +
                        "\n(G/g) gravity: " + ofToString(gravitation.strength) +
                        "\n(R/r) rotation: " + ofToString(rotation.strength) +
+                       "\n(M/m) mouse attraction/repulsion: " + ofToString(attraction.strength) +
                        "\n(F/f) vector field multiplier: " + ofToString(fieldMult) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
                        "\n(v) show vector field" +
@@ -190,6 +191,16 @@ void testApp::keyPressed(int key){
             break;
         case 'G':
             gravitation.strength *= 1.1;
+            break;
+            
+        case 'm':
+            if (attraction.strength > 1.1)
+                attraction.strength /= 1.1;
+            repulsion.strength = attraction.strength;
+            break;
+        case 'M':
+            attraction.strength *= 1.1;
+            repulsion.strength = attraction.strength;
             break;
             
         case 'd':

@@ -30,5 +30,5 @@ void ofxParticleForce::apply(ofxParticle * p, const ofVec3f& force)
 //--------------------------------------------------------------
 void ofxParticleForce::debug()
 {
-    ofCircle(position, strength);
+    ofCircle(position, sqrt(strength));
 }

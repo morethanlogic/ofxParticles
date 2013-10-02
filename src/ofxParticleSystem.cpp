@@ -42,30 +42,6 @@ void ofxParticleSystem::applyForce(ofxParticleForce& force)
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::attractTo(const ofPoint& pt, float strength, float radius, float consumeDistance)
-{
-    for (auto& it : particles) {
-        it->attractTo(pt, strength, radius, consumeDistance);
-    }
-}
-
-//--------------------------------------------------------------
-void ofxParticleSystem::gravitateTo(const ofPoint& pt, float mass, float gravity, float minDist, bool bConsume)
-{
-    for (auto& it : particles) {
-        it->gravitateTo(pt, mass, gravity, minDist, bConsume);
-    }
-}
-
-//--------------------------------------------------------------
-void ofxParticleSystem::rotateAround(const ofPoint& pt, float acc, float minDist, float bConsumeParticle)
-{
-    for (auto& it : particles) {
-        it->rotateAround(pt, acc, minDist, bConsumeParticle);
-    }
-}
-
-//--------------------------------------------------------------
 void ofxParticleSystem::applyVectorField(float * field, int fieldWidth, int fieldHeight, int numComponents, const ofRectangle& areaOfInfluence, float force)
 {
     for (auto& it : particles) {
