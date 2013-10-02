@@ -64,3 +64,18 @@ list<ofxParticle *> ofxParticleEmitter::emit()
     }
     return particles;
 }
+
+//--------------------------------------------------------------
+void ofxParticleEmitter::debugDraw(int r, int g, int b)
+{
+    ofNoFill();
+    ofSetColor(90, 206, 255, 200);
+    ofDrawBox(position.x, position.y, position.z,
+              posSpread.x * 2.0f, posSpread.y * 2.0f, posSpread.z * 2.0f);
+    
+    ofFill();
+    ofSetColor(255, 0, 0, 100);
+    float coreSize = 10.0f;
+    ofDrawBox(position.x, position.y, position.z,
+              coreSize, coreSize, coreSize);
+}
