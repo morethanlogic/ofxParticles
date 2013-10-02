@@ -59,7 +59,7 @@ void testApp::setup()
     
     // Set parameter defaults.
     rotAcc = 4500;
-    gravAcc = 13500;
+    gravity = 13500;
     drag = 0.5;
     fieldMult = 40.0;
     displayMode = 0;
@@ -81,11 +81,13 @@ void testApp::update()
     
     // Add forces.
     float dt = MIN(ofGetLastFrameTime(), 1.0f / 10.0f);
-    particleSystem.gravitateTo(centerPt, gravAcc, 1.0f, 10.0f, false);
-    particleSystem.rotateAround(centerPt, rotAcc, 10.0f, false);
-    particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
+    cout << dt << endl;
+    particleSystem.gravitateTo(centerPt, 1.0f, gravity);
+//    particleSystem.rotateAround(centerPt, rotAcc, 10.0f, false);
+//    particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
     if (ofGetMousePressed(2)) {
-        particleSystem.gravitateTo(mousePos, gravAcc, 1.0f, 10.0f, false);
+//        particleSystem.attractTo(mousePos, gravity, 25);
+        particleSystem.attractTo(ofVec3f(centerPt.x, centerPt.y + 50, centerPt.z), gravity, 25);
     }
     
     particleSystem.update(dt, drag);
@@ -135,7 +137,7 @@ void testApp::draw()
     // Draw forces.
     ofNoFill();
     ofSetColor(255, 0, 0, 50);
-    ofCircle(centerPt, sqrt(gravAcc));
+    ofCircle(centerPt, sqrt(gravity));
     ofSetColor(0, 0, 255, 50);
     ofCircle(centerPt, sqrt(rotAcc));
     
@@ -157,7 +159,7 @@ void testApp::draw()
     ofSetColor(255, 255, 255);
     ofDrawBitmapString(ofToString(particleSystem.numParticles) + " particles" +
                        "\n" + ofToString(ofGetFrameRate()) + " fps" +
-                       "\n(G/g) gravitation: " + ofToString(gravAcc) +
+                       "\n(G/g) gravity: " + ofToString(gravity) +
                        "\n(R/r) rotational acceleration: " + ofToString(rotAcc) +
                        "\n(F/f) vector field multiplier: " + ofToString(fieldMult) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
@@ -178,11 +180,11 @@ void testApp::keyPressed(int key){
             break;
             
         case 'g':
-            if(gravAcc > 1.1)
-                gravAcc /= 1.1;
+            if (gravity > 1.1)
+                gravity /= 1.1;
             break;
         case 'G':
-            gravAcc *= 1.1;
+            gravity *= 1.1;
             break;
             
         case 'd':

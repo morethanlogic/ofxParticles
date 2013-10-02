@@ -30,7 +30,7 @@ class testApp : public ofBaseApp
     
         ofxParticleSystem particleSystem;
         ofxParticleEmitter mouseEmitter, topEmitter, botEmitter, leftEmitter, rightEmitter;
-        float rotAcc, gravAcc, fieldMult, drag;
+        float rotAcc, gravity, fieldMult, drag;
         ofFloatPixels vectorField;
         
         ofTexture pTex, p1Tex, p2Tex;

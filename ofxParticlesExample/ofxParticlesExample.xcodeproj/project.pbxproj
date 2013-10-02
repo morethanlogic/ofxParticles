@@ -10,6 +10,11 @@
 		6468527A17E8ED6A00CFE9DF /* ofxParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527917E8ED6A00CFE9DF /* ofxParticle.cpp */; };
 		6468527D17E920DE00CFE9DF /* ofxParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527C17E920DE00CFE9DF /* ofxParticleEmitter.cpp */; };
 		6468528017E9221500CFE9DF /* ofxParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527F17E9221500CFE9DF /* ofxParticleSystem.cpp */; };
+		649B93E017FB4ABE004CB0BF /* ofxParticleGravitation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93DF17FB4ABE004CB0BF /* ofxParticleGravitation.cpp */; };
+		649B93E417FB4E1E004CB0BF /* ofxParticleForce.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93E317FB4E1E004CB0BF /* ofxParticleForce.cpp */; };
+		649B93E717FB8573004CB0BF /* ofxParticleAttraction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93E617FB8573004CB0BF /* ofxParticleAttraction.cpp */; };
+		649B93EA17FB93D5004CB0BF /* ofxParticleRepulsion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */; };
+		649B93ED17FB9652004CB0BF /* ofxParticleRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -70,6 +75,16 @@
 		6468527C17E920DE00CFE9DF /* ofxParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleEmitter.cpp; sourceTree = "<group>"; };
 		6468527E17E9220B00CFE9DF /* ofxParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleSystem.h; sourceTree = "<group>"; };
 		6468527F17E9221500CFE9DF /* ofxParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleSystem.cpp; sourceTree = "<group>"; };
+		649B93DE17FB4AB4004CB0BF /* ofxParticleGravitation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleGravitation.h; sourceTree = "<group>"; };
+		649B93DF17FB4ABE004CB0BF /* ofxParticleGravitation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleGravitation.cpp; sourceTree = "<group>"; };
+		649B93E217FB4E11004CB0BF /* ofxParticleForce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleForce.h; sourceTree = "<group>"; };
+		649B93E317FB4E1E004CB0BF /* ofxParticleForce.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleForce.cpp; sourceTree = "<group>"; };
+		649B93E517FB856B004CB0BF /* ofxParticleAttraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleAttraction.h; sourceTree = "<group>"; };
+		649B93E617FB8573004CB0BF /* ofxParticleAttraction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleAttraction.cpp; sourceTree = "<group>"; };
+		649B93E817FB93CC004CB0BF /* ofxParticleRepulsion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleRepulsion.h; sourceTree = "<group>"; };
+		649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleRepulsion.cpp; sourceTree = "<group>"; };
+		649B93EB17FB9643004CB0BF /* ofxParticleRotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticleRotation.h; sourceTree = "<group>"; };
+		649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticleRotation.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -130,8 +145,18 @@
 				6468527617E8ECE200CFE9DF /* ofxParticles.h */,
 				6468527817E8ED6200CFE9DF /* ofxParticle.h */,
 				6468527917E8ED6A00CFE9DF /* ofxParticle.cpp */,
+				649B93E517FB856B004CB0BF /* ofxParticleAttraction.h */,
+				649B93E617FB8573004CB0BF /* ofxParticleAttraction.cpp */,
 				6468527B17E920D600CFE9DF /* ofxParticleEmitter.h */,
 				6468527C17E920DE00CFE9DF /* ofxParticleEmitter.cpp */,
+				649B93E217FB4E11004CB0BF /* ofxParticleForce.h */,
+				649B93E317FB4E1E004CB0BF /* ofxParticleForce.cpp */,
+				649B93DE17FB4AB4004CB0BF /* ofxParticleGravitation.h */,
+				649B93DF17FB4ABE004CB0BF /* ofxParticleGravitation.cpp */,
+				649B93E817FB93CC004CB0BF /* ofxParticleRepulsion.h */,
+				649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */,
+				649B93EB17FB9643004CB0BF /* ofxParticleRotation.h */,
+				649B93EC17FB9652004CB0BF /* ofxParticleRotation.cpp */,
 				6468527E17E9220B00CFE9DF /* ofxParticleSystem.h */,
 				6468527F17E9221500CFE9DF /* ofxParticleSystem.cpp */,
 			);
@@ -326,6 +351,11 @@
 				6468527A17E8ED6A00CFE9DF /* ofxParticle.cpp in Sources */,
 				6468527D17E920DE00CFE9DF /* ofxParticleEmitter.cpp in Sources */,
 				6468528017E9221500CFE9DF /* ofxParticleSystem.cpp in Sources */,
+				649B93E017FB4ABE004CB0BF /* ofxParticleGravitation.cpp in Sources */,
+				649B93E417FB4E1E004CB0BF /* ofxParticleForce.cpp in Sources */,
+				649B93E717FB8573004CB0BF /* ofxParticleAttraction.cpp in Sources */,
+				649B93EA17FB93D5004CB0BF /* ofxParticleRepulsion.cpp in Sources */,
+				649B93ED17FB9652004CB0BF /* ofxParticleRotation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

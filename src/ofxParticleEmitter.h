@@ -1,6 +1,6 @@
 //
 //  ofxParticleEmitter.h
-//  ofxParticlesExample
+//  ofxParticles
 //
 //  Created by Elie Zananiri on 2013-09-17.
 //  Based on ofxParticles by Timothy Scaffidi, 2012-06-14.
@@ -20,7 +20,7 @@ class ofxParticleEmitter
         ofxParticleEmitter();
         ~ofxParticleEmitter();
     
-        list<ofxParticle *> emit();
+        virtual list<ofxParticle *> emit();
     
         ofVec3f position;
         ofVec3f posSpread;

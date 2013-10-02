@@ -10,6 +10,16 @@ void testApp::setup()
     
     centerPt.set(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f);
     
+    gravitation.setup(centerPt, 200.0f, 50.0f, 25.0f, false);
+
+    attraction.setup(centerPt, 100.0f, 50.0f, 10.0f, false);
+    attraction.bEnabled = false;
+    
+    repulsion.setup(centerPt, 100.0f, 50.0f, 10.0f, false);
+    repulsion.bEnabled = false;
+    
+    rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 5.0f, 100.0f);
+    
     mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
     mouseEmitter.life = 10.0f;
     mouseEmitter.lifeSpread = 5.0f;
@@ -18,34 +28,34 @@ void testApp::setup()
     mouseEmitter.colorSpread = ofColor(20, 20, 0);
     mouseEmitter.size = 32.0f;
     
-    leftEmitter.setPosition(ofVec3f(0,ofGetHeight()/3));
-    leftEmitter.setVelocity(ofVec3f(150.0,0.0));
-    leftEmitter.posSpread = ofVec3f(10,10.0);
-    leftEmitter.velSpread = ofVec3f(10.0,10);
+    leftEmitter.position.set(0, ofGetHeight() / 3);
+    leftEmitter.velocity.set(250.0, 0.0);
+    leftEmitter.posSpread = ofVec3f(10.0, 10.0);
+    leftEmitter.velSpread = ofVec3f(10.0, 10.0);
     leftEmitter.life = 20;
     leftEmitter.lifeSpread = 5.0;
     leftEmitter.numPars = 2;
-    leftEmitter.color = ofColor(200,100,100);
-    leftEmitter.colorSpread = ofColor(50,50,50);
+    leftEmitter.color = ofColor(200, 100, 100);
+    leftEmitter.colorSpread = ofColor(50, 50, 50);
     leftEmitter.size = 32;
     
     rightEmitter = leftEmitter;
-    rightEmitter.setPosition(ofVec3f(ofGetWidth()-1,ofGetHeight()*2/3));
-    rightEmitter.setVelocity(ofVec3f(-150.0,0.0));
-    rightEmitter.color = ofColor(100,100,200);
-    rightEmitter.colorSpread = ofColor(50,50,50);
+    rightEmitter.position.set(ofGetWidth() - 1, ofGetHeight() * 2 / 3);
+    rightEmitter.velocity.set(-250.0, 0.0);
+    rightEmitter.color = ofColor(100, 100, 200);
+    rightEmitter.colorSpread = ofColor(50, 50, 50);
     
     topEmitter = leftEmitter;
-    topEmitter.setPosition(ofVec3f(ofGetWidth()*2/3,0));
-    topEmitter.setVelocity(ofVec3f(0.0,150.0));
-    topEmitter.color = ofColor(100,200,100);
-    topEmitter.colorSpread = ofColor(50,50,50);
+    topEmitter.position.set(ofGetWidth() * 2 / 3, 0);
+    topEmitter.velocity.set(0.0, 150.0);
+    topEmitter.color = ofColor(100, 200, 100);
+    topEmitter.colorSpread = ofColor(50, 50, 50);
     
     botEmitter = leftEmitter;
-    botEmitter.setPosition(ofVec3f(ofGetWidth()/3,ofGetHeight()-1));
-    botEmitter.setVelocity(ofVec3f(0.0,-150.0));
-    botEmitter.color = ofColor(200,200,0);
-    botEmitter.colorSpread = ofColor(50,50,0);
+    botEmitter.position.set(ofGetWidth() / 3, ofGetHeight() - 1);
+    botEmitter.velocity.set(0.0, -150.0);
+    botEmitter.color = ofColor(200, 200, 0);
+    botEmitter.colorSpread = ofColor(50, 50, 0);
     
     vectorField.allocate(128, 128, 3);
     
@@ -54,10 +64,8 @@ void testApp::setup()
     ofLoadImage(p2Tex, "p2.png");
     
     // Set parameter defaults.
-    rotAcc = 4500;
-    gravAcc = 13500;
     drag = 0.5;
-    fieldMult = 40.0;
+    fieldMult = 5.0f;
     displayMode = 0;
 }
 
@@ -77,13 +85,12 @@ void testApp::update()
     
     // Add forces.
     float dt = MIN(ofGetLastFrameTime(), 1.0f / 10.0f);
-    particleSystem.gravitateTo(centerPt, gravAcc, 1.0f, 10.0f, false);
-    particleSystem.rotateAround(centerPt, rotAcc, 10.0f, false);
-    particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
-    if (ofGetMousePressed(2)) {
-        particleSystem.gravitateTo(mousePos, gravAcc, 1.0f, 10.0f, false);
-    }
     
+    particleSystem.applyForce(gravitation);
+    particleSystem.applyVectorField(vectorField.getPixels(), vectorField.getWidth(), vectorField.getHeight(), vectorField.getNumChannels(), ofGetWindowRect(), fieldMult);
+    particleSystem.applyForce(attraction);
+    particleSystem.applyForce(repulsion);
+    particleSystem.applyForce(rotation);
     particleSystem.update(dt, drag);
     
     particleSystem.addParticles(leftEmitter);
@@ -95,9 +102,10 @@ void testApp::update()
     mouseVel = mousePos - prevMousePos;
     mouseVel *= 20.0f;
     if (ofGetMousePressed(0)) {
-        mouseEmitter.setPosition(prevMousePos, mousePos);
-        mouseEmitter.posSpread = ofVec3f(10.0f, 10.0f, 0.0f);
-        mouseEmitter.setVelocity(prevMouseVel, mouseVel);
+        mouseEmitter.position.set(mousePos);
+        mouseEmitter.posSpread.set(mousePos - prevMousePos);
+        mouseEmitter.velocity.set(mouseVel);
+        mouseEmitter.velSpread.set(mouseVel - prevMouseVel);
         particleSystem.addParticles(mouseEmitter);
     }
     prevMousePos = mousePos;
@@ -128,9 +136,17 @@ void testApp::draw()
     // Draw forces.
     ofNoFill();
     ofSetColor(255, 0, 0, 50);
-    ofCircle(centerPt, sqrt(gravAcc));
+    gravitation.debug();
     ofSetColor(0, 0, 255, 50);
-    ofCircle(centerPt, sqrt(rotAcc));
+    rotation.debug();
+    if (attraction.bEnabled) {
+        ofSetColor(0, 255, 0, 50);
+        attraction.debug();
+    }
+    if (repulsion.bEnabled) {
+        ofSetColor(255, 255, 0, 50);
+        repulsion.debug();
+    }
     
     // Draw system.
     ofSetLineWidth(2.0);
@@ -148,8 +164,8 @@ void testApp::draw()
     ofSetColor(255, 255, 255);
     ofDrawBitmapString(ofToString(particleSystem.numParticles) + " particles" +
                        "\n" + ofToString(ofGetFrameRate()) + " fps" +
-                       "\n(G/g) gravitation: " + ofToString(gravAcc) +
-                       "\n(R/r) rotational acceleration: " + ofToString(rotAcc) +
+                       "\n(G/g) gravity: " + ofToString(gravitation.strength) +
+                       "\n(R/r) rotation: " + ofToString(rotation.strength) +
                        "\n(F/f) vector field multiplier: " + ofToString(fieldMult) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
                        "\n(v) show vector field" +
@@ -161,19 +177,19 @@ void testApp::draw()
 void testApp::keyPressed(int key){
     switch (key) {
         case 'r':
-            if(rotAcc > 1.1)
-                rotAcc /= 1.1;
+            if (rotation.strength > 1.1)
+                rotation.strength /= 1.1;
             break;
         case 'R':
-            rotAcc *= 1.1;
+            rotation.strength *= 1.1;
             break;
             
         case 'g':
-            if(gravAcc > 1.1)
-                gravAcc /= 1.1;
+            if (gravitation.strength > 1.1)
+                gravitation.strength /= 1.1;
             break;
         case 'G':
-            gravAcc *= 1.1;
+            gravitation.strength *= 1.1;
             break;
             
         case 'd':
@@ -214,24 +230,34 @@ void testApp::keyReleased(int key){
 void testApp::mouseMoved(int x, int y)
 {
     mousePos.set(x, y);
+    attraction.position.set(x, y);
+    repulsion.position.set(x, y);
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button)
 {
-    mousePos.set(x, y);    
+    mousePos.set(x, y);
+    attraction.position.set(x, y);
+    repulsion.position.set(x, y);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button)
 {
-
+    if (button == 2) {
+        attraction.bEnabled = true;
+    }
+    else if (button == 1) {
+        repulsion.bEnabled = true;
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button)
 {
-
+    attraction.bEnabled = false;
+    repulsion.bEnabled = false;
 }
 
 //--------------------------------------------------------------
@@ -239,10 +265,10 @@ void testApp::windowResized(int w, int h)
 {
     centerPt.set(w * 0.5f, h * 0.5f);
 
-    leftEmitter.setPosition(ofVec3f(0,h/3));
-    rightEmitter.setPosition(ofVec3f(w-1,h*2/3));
-    topEmitter.setPosition(ofVec3f(w*2/3,0));
-    botEmitter.setPosition(ofVec3f(w/3,h-1));
+    leftEmitter.position.set(0, h / 3);
+    rightEmitter.position.set(w - 1, h * 2 / 3);
+    topEmitter.position.set(w * 2 / 3, 0);
+    botEmitter.position.set(w / 3, h - 1);
 }
 
 //--------------------------------------------------------------

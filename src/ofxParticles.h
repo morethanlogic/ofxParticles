@@ -7,5 +7,10 @@
 //
 
 #include "ofxParticle.h"
+#include "ofxParticleAttraction.h"
 #include "ofxParticleEmitter.h"
+#include "ofxParticleForce.h"
+#include "ofxParticleGravitation.h"
+#include "ofxParticleRepulsion.h"
+#include "ofxParticleRotation.h"
 #include "ofxParticleSystem.h"

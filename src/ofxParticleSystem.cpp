@@ -1,6 +1,6 @@
 //
 //  ofxParticleSystem.cpp
-//  ofxParticlesExample
+//  ofxParticles
 //
 //  Created by Elie Zananiri on 2013-09-17.
 //  Based on ofxParticles by Timothy Scaffidi, 2012-06-14.
@@ -32,18 +32,28 @@ void ofxParticleSystem::addParticles(ofxParticleEmitter& emitter)
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle)
+void ofxParticleSystem::applyForce(ofxParticleForce& force)
 {
-    for (auto& it : particles) {
-        it->attractTo(pt, acc, minDist, bConsumeParticle);
+    if (force.bEnabled) {
+        for (auto& it : particles) {
+            force.apply(it);
+        }
     }
 }
 
 //--------------------------------------------------------------
-void ofxParticleSystem::gravitateTo(const ofPoint& pt, float gravity, float mass, float minDist, float bConsumeParticle)
+void ofxParticleSystem::attractTo(const ofPoint& pt, float strength, float radius, float consumeDistance)
 {
     for (auto& it : particles) {
-        it->gravitateTo(pt, gravity, mass, minDist, bConsumeParticle);
+        it->attractTo(pt, strength, radius, consumeDistance);
+    }
+}
+
+//--------------------------------------------------------------
+void ofxParticleSystem::gravitateTo(const ofPoint& pt, float mass, float gravity, float minDist, bool bConsume)
+{
+    for (auto& it : particles) {
+        it->gravitateTo(pt, mass, gravity, minDist, bConsume);
     }
 }
 

@@ -1,6 +1,6 @@
 //
 //  ofxParticle.cpp
-//  ofxParticlesExample
+//  ofxParticles
 //
 //  Created by Elie Zananiri on 2013-09-17.
 //  Based on ofxParticles by Timothy Scaffidi, 2012-06-14.
@@ -87,55 +87,59 @@ ofxParticle& ofxParticle::operator = (const ofxParticle& mom)
 //--------------------------------------------------------------
 void ofxParticle::applyForce(const ofVec3f& force)
 {
-    acceleration += force * dt;
+//    acceleration += force * mass * dt;
+    acceleration += force * mass;
 }
 
 //--------------------------------------------------------------
-void ofxParticle::attractTo(const ofxParticle& p, float acc, float minDist, bool bConsumeParticle)
+void ofxParticle::attractTo(const ofxParticle& p, float strength, float radius, float consumeDist)
 {
-    attractTo(p.position, acc, minDist, bConsumeParticle);
+    attractTo(p.position, strength, radius, consumeDist);
 }
 
 //--------------------------------------------------------------
-void ofxParticle::attractTo(const ofPoint& pt, float acc, float minDist, bool bConsumeParticle)
-{
-    ofVec3f dir = pt - position;
-
-    float dist = dir.length();
-    if (dist < minDist) {
-        dist = minDist;
-        if (bConsumeParticle) {
-            life = 0;
-        }
-    }
-    
-    dir.normalize().scale(acc * dt);
-    acceleration += dir;
-}
-
-//--------------------------------------------------------------
-void ofxParticle::gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsumeParticle)
-{
-    gravitateTo(p.position, gravity, p.mass, minDist, bConsumeParticle);
-}
-
-//--------------------------------------------------------------
-void ofxParticle::gravitateTo(const ofPoint& pt, float gravity, float mass2, float minDist, bool bConsumeParticle)
+void ofxParticle::attractTo(const ofPoint& pt, float strength, float radius, float consumeDist)
 {
     if (pt == position) return;
     
-    ofVec3f dir = pt - position;
+    ofVec3f force = pt - position;
 
-    float dist = dir.length();
+    float dist = force.length();
+    if (radius > 0 && dist > radius) {
+        return;
+    }
+    
+    if (dist < consumeDist) {
+        life = 0;
+    }
+    
+    force.normalize().scale(strength);
+    applyForce(force);
+}
+
+//--------------------------------------------------------------
+void ofxParticle::gravitateTo(const ofxParticle& p, float gravity, float minDist, bool bConsume)
+{
+    gravitateTo(p.position, p.mass, gravity, minDist, bConsume);
+}
+
+//--------------------------------------------------------------
+void ofxParticle::gravitateTo(const ofPoint& pt, float mass2, float gravity, float minDist, bool bConsume)
+{
+    if (pt == position) return;
+    
+    ofVec3f force = pt - position;
+
+    float dist = force.length();
     if (dist < minDist) {
         dist = minDist;
-        if (bConsumeParticle) {
+        if (bConsume) {
             life = 0;
         }
     }
     
-    dir.normalize().scale(gravity * mass * mass2 * dt * (1.0f / dist));
-    acceleration += dir;
+    force.normalize().scale(gravity * mass2 / (dist * dist));
+    applyForce(force);
 }
 
 //--------------------------------------------------------------
