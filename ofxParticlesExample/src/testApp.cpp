@@ -178,6 +178,7 @@ void testApp::keyPressed(int key)
             drag *= 1.01;
             if(drag > 1.0) drag = 1.0;
             break;
+            
         case 'f':
             if (vectorField.strength > 0.1)
                 vectorField.strength /= 1.1;

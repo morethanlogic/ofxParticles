@@ -54,5 +54,6 @@ class ofxParticleEmitter
         ofColor colorSpread;
     
         int emitterID;
+        uint groupBits;
         bool bEnabled;
 };

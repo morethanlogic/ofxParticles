@@ -21,6 +21,7 @@ ofxParticleEmitter::ofxParticleEmitter()
 , color(255, 255, 255, 255)
 , colorSpread(0, 0, 0, 0)
 , emitterID(0)
+, groupBits(0x0001)
 , bEnabled(true)
 {
 
@@ -48,6 +49,7 @@ list<ofxParticle *> ofxParticleEmitter::emit()
         particle->rotationalVelocity = rotVel + ofRandVec3f() * rotVelSpread;
         particle->particleID = ofxParticleTotalEmitted++;
         particle->emitterID = emitterID;
+        particle->groupBits = groupBits;
         
         ofColor col = color;
         if (colorSpread != ofColor(0, 0, 0, 0)) {

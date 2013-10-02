@@ -34,7 +34,9 @@ void ofxParticleSystem::applyForce(ofxParticleForce& force)
 {
     if (force.bEnabled) {
         for (auto& it : particles) {
-            force.apply(it);
+            if ((force.maskBits & it->groupBits) != 0) {
+                force.apply(it);
+            }
         }
     }
 }

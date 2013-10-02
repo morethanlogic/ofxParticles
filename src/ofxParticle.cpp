@@ -10,30 +10,28 @@
 
 //--------------------------------------------------------------
 ofxParticle::ofxParticle()
+: mass(1.0f)
+, size(1.0f)
+, life(1.0f)
+, particleID(0)
+, emitterID(0)
+, groupBits(0x0001)
 {
-    position = velocity = acceleration = ofVec3f(0, 0, 0);
-    color = ofColor(255, 255, 255, 255);
-    mass = 1.0f;
-    size = 1.0f;
-    lifeStart = life = 1.0f;
-    particleID = 0;
-    emitterID = 0;
+    lifeStart = life;
     dt = 1.0f / 60.0f;
 }
 
 //--------------------------------------------------------------
 ofxParticle::ofxParticle(ofVec3f position, ofVec3f velocity, float size, float life)
+: position(position)
+, velocity(velocity)
+, mass(1.0f)
+, size(size)
+, particleID(0)
+, emitterID(0)
+, groupBits(0x0001)
 {
-    this->position = position;
-    this->velocity = velocity;
-    this->size = size;
     this->life = lifeStart = MAX(1.0, life);
-
-    acceleration = ofVec3f(0, 0, 0);
-    color = ofColor(255, 255, 255, 255);
-    mass = 1.0;
-    particleID = 0;
-    emitterID = 0;
     dt = 1.0f / 60.0f;
 }
 
@@ -52,6 +50,7 @@ ofxParticle::ofxParticle(const ofxParticle& mom)
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
     emitterID = mom.emitterID;
+    groupBits = mom.groupBits;
     dt = 1.0f / 60.0f;
 }
 
@@ -84,6 +83,7 @@ ofxParticle& ofxParticle::operator = (const ofxParticle& mom)
     lifeStart = mom.lifeStart;
     particleID = mom.particleID;
     emitterID = mom.emitterID;
+    groupBits = mom.groupBits;
     dt = 1.0f / 60.0f;
     
     return *this;
@@ -111,6 +111,7 @@ void ofxParticle::draw()
 }
 
 //--------------------------------------------------------------
+bool ofxParticle::isAlive()
 {
-    return life > 0.0;
+    return (life > 0.0);
 }

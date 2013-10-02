@@ -46,4 +46,5 @@ class ofxParticle
         float dt;
         int particleID;
         int emitterID;
+        uint groupBits;
 };
