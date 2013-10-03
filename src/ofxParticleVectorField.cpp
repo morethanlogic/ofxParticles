@@ -45,7 +45,7 @@ void ofxParticleVectorField::apply(ofxParticle * p)
         int x = (int)ofMap(pos2D.x, roi.getMinX(), roi.getMaxX(), 0, field.getWidth() - 1);
         int y = (int)ofMap(pos2D.y, roi.getMinY(), roi.getMaxY(), 0, field.getHeight() - 1);
         int index = (x + y * field.getWidth()) * field.getNumChannels();
-        ofVec2f force(field[index], field[index + 1]);
+        ofVec3f force(field[index], field[index + 1], field[index]);
         force.scale(strength);
         
         ofxParticleForce::apply(p, force);
