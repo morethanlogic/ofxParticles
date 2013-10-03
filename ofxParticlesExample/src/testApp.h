@@ -31,8 +31,8 @@ class testApp : public ofBaseApp
         ofxParticleSystem particleSystem;
         ofxParticleEmitter mouseEmitter, topEmitter, botEmitter, leftEmitter, rightEmitter;
         ofxParticleGravitation gravitation;
-        ofxParticleAttraction attraction;
-        ofxParticleRepulsion repulsion;
+        ofxParticleAttraction mouseAttraction;
+        ofxParticleRepulsion mouseRepulsion;
         ofxParticleRotation rotation;
         ofxParticleVectorField vectorField;
         float drag;

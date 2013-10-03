@@ -12,11 +12,13 @@ void testApp::setup()
     
     gravitation.setup(centerPt, 2000.0f, 500.0f, 25.0f, false);
 
-    attraction.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
-    attraction.bEnabled = false;
+    mouseAttraction.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
+    mouseAttraction.maskBits = 0x1101;
+    mouseAttraction.bEnabled = false;
     
-    repulsion.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
-    repulsion.bEnabled = false;
+    mouseRepulsion.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
+    mouseRepulsion.maskBits = 0x1101;
+    mouseRepulsion.bEnabled = false;
     
     rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 100.0f, 100.0f);
     
@@ -29,6 +31,7 @@ void testApp::setup()
     mouseEmitter.color = ofColor(200, 200, 255);
     mouseEmitter.colorSpread = ofColor(20, 20, 0);
     mouseEmitter.size = 32.0f;
+    mouseEmitter.groupBits = 0x0010;
     
     leftEmitter.position.set(0, ofGetHeight() / 3);
     leftEmitter.velocity.set(250.0, 0.0);
@@ -79,8 +82,8 @@ void testApp::update()
     particleSystem.applyForce(gravitation);
     particleSystem.applyForce(vectorField);
     particleSystem.applyForce(rotation);
-    particleSystem.applyForce(attraction);
-    particleSystem.applyForce(repulsion);
+    particleSystem.applyForce(mouseAttraction);
+    particleSystem.applyForce(mouseRepulsion);
     
     particleSystem.update(dt, drag);
     
@@ -92,7 +95,7 @@ void testApp::update()
     // Update mouse emitter.
     mouseVel = mousePos - prevMousePos;
     mouseVel *= 20.0f;
-    if (ofGetMousePressed(0)) {
+    if (ofGetMousePressed(0) || ofGetMousePressed(2)) {
         mouseEmitter.position.set(mousePos);
         mouseEmitter.posSpread.set(mousePos - prevMousePos);
         mouseEmitter.velocity.set(mouseVel);
@@ -116,11 +119,11 @@ void testApp::draw()
     ofSetLineWidth(1.0);
     gravitation.debugDraw();
     rotation.debugDraw();
-    if (attraction.bEnabled) {
-        attraction.debugDraw();
+    if (mouseAttraction.bEnabled) {
+        mouseAttraction.debugDraw();
     }
-    if (repulsion.bEnabled) {
-        repulsion.debugDraw();
+    if (mouseRepulsion.bEnabled) {
+        mouseRepulsion.debugDraw();
     }
     
     // Draw system.
@@ -133,7 +136,7 @@ void testApp::draw()
                        "\n" + ofToString(ofGetFrameRate()) + " fps" +
                        "\n(G/g) gravity: " + ofToString(gravitation.strength) +
                        "\n(R/r) rotation: " + ofToString(rotation.strength) +
-                       "\n(M/m) mouse attraction/repulsion: " + ofToString(attraction.strength) +
+                       "\n(M/m) mouse attraction/repulsion: " + ofToString(mouseAttraction.strength) +
                        "\n(F/f) vector field multiplier: " + ofToString(vectorField.strength) +
                        "\n(D/d) drag constant: " + ofToString(drag) +
                        "\n(v) show vector field",
@@ -161,13 +164,13 @@ void testApp::keyPressed(int key)
             break;
             
         case 'm':
-            if (attraction.strength > 1.1)
-                attraction.strength /= 1.1;
-            repulsion.strength = attraction.strength;
+            if (mouseAttraction.strength > 1.1)
+                mouseAttraction.strength /= 1.1;
+            mouseRepulsion.strength = mouseAttraction.strength;
             break;
         case 'M':
-            attraction.strength *= 1.1;
-            repulsion.strength = attraction.strength;
+            mouseAttraction.strength *= 1.1;
+            mouseRepulsion.strength = mouseAttraction.strength;
             break;
             
         case 'd':
@@ -202,34 +205,34 @@ void testApp::keyReleased(int key)
 void testApp::mouseMoved(int x, int y)
 {
     mousePos.set(x, y);
-    attraction.position.set(x, y);
-    repulsion.position.set(x, y);
+    mouseAttraction.position.set(x, y);
+    mouseRepulsion.position.set(x, y);
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button)
 {
     mousePos.set(x, y);
-    attraction.position.set(x, y);
-    repulsion.position.set(x, y);
+    mouseAttraction.position.set(x, y);
+    mouseRepulsion.position.set(x, y);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button)
 {
     if (button == 2) {
-        attraction.bEnabled = true;
+        mouseAttraction.bEnabled = true;
     }
-    else if (button == 1) {
-        repulsion.bEnabled = true;
+    else if (button == 0) {
+        mouseRepulsion.bEnabled = true;
     }
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button)
 {
-    attraction.bEnabled = false;
-    repulsion.bEnabled = false;
+    mouseAttraction.bEnabled = false;
+    mouseRepulsion.bEnabled = false;
 }
 
 //--------------------------------------------------------------
