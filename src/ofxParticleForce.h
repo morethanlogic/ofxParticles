@@ -26,6 +26,6 @@ class ofxParticleForce
         ofVec3f position;
         float strength;
     
-        uint maskBits;
+        unsigned int maskBits;
         bool bEnabled;
 };
