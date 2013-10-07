@@ -51,8 +51,29 @@ void ofxParticleRotation::apply(ofxParticle * p)
 //--------------------------------------------------------------
 void ofxParticleRotation::debugDraw(int r, int g, int b)
 {
+//    ofxParticleForce::debugDraw(r, g, b, 128);
+//    ofSetColor(r, g, b);
+//    ofCircle(position, minDist);
+//    ofCircle(position, maxDist);
+//    
+//    
     ofxParticleForce::debugDraw(r, g, b, 128);
     ofSetColor(r, g, b);
-    ofCircle(position, minDist);
-    ofCircle(position, maxDist);
+    
+    ofSetCircleResolution(50);
+    ofNoFill();
+    ofPushMatrix();
+    ofTranslate(position);
+    
+    ofCircle(.0f, .0f, .0f, minDist);
+    ofCircle(.0f, .0f, .0f, maxDist);
+    
+    ofRotate(90.0f, .0f, 1.0f, 0.0f);
+    ofCircle(.0f, .0f, .0f, minDist);
+    ofCircle(.0f, .0f, .0f, maxDist);
+    
+    ofRotate(90.0f, 1.0f, .0f, 0.0f);
+    ofCircle(.0f, .0f, .0f, minDist);
+    ofCircle(.0f, .0f, .0f, maxDist);
+    ofPopMatrix();
 }

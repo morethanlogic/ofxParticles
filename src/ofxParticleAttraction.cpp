@@ -68,10 +68,7 @@ void ofxParticleAttraction::debugDraw(int r, int g, int b)
     ofRotate(90.0f, .0f, 1.0f, 0.0f);
     ofCircle(.0f, .0f, .0f, minDist);
     ofCircle(.0f, .0f, .0f, maxDist);
-    ofPopMatrix();
     
-    ofPushMatrix();
-    ofTranslate(position);
     ofRotate(90.0f, 1.0f, .0f, 0.0f);
     ofCircle(.0f, .0f, .0f, minDist);
     ofCircle(.0f, .0f, .0f, maxDist);
