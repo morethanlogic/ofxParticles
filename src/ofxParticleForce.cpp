@@ -11,7 +11,7 @@
 //--------------------------------------------------------------
 ofxParticleForce::ofxParticleForce()
 : bEnabled(true)
-, maskBits(0x111)
+, maskBits(0x1111)
 {
 
 }
