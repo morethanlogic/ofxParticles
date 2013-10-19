@@ -33,6 +33,7 @@ class testApp : public ofBaseApp
         ofxParticleGravitation gravitation;
         ofxParticleAttraction mouseAttraction;
         ofxParticleRepulsion mouseRepulsion;
+        ofxParticlePush mousePush;
         ofxParticleRotation rotation;
         ofxParticleVectorField vectorField;
         float drag;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		643C382A1812CEE800FED3D6 /* ofxParticlePush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 643C38291812CEE800FED3D6 /* ofxParticlePush.cpp */; };
 		6468527A17E8ED6A00CFE9DF /* ofxParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527917E8ED6A00CFE9DF /* ofxParticle.cpp */; };
 		6468527D17E920DE00CFE9DF /* ofxParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527C17E920DE00CFE9DF /* ofxParticleEmitter.cpp */; };
 		6468528017E9221500CFE9DF /* ofxParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6468527F17E9221500CFE9DF /* ofxParticleSystem.cpp */; };
@@ -69,6 +70,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		643C38281812CEDE00FED3D6 /* ofxParticlePush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticlePush.h; sourceTree = "<group>"; };
+		643C38291812CEE800FED3D6 /* ofxParticlePush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticlePush.cpp; sourceTree = "<group>"; };
 		6468527617E8ECE200CFE9DF /* ofxParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxParticles.h; sourceTree = "<group>"; };
 		6468527817E8ED6200CFE9DF /* ofxParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxParticle.h; sourceTree = "<group>"; };
 		6468527917E8ED6A00CFE9DF /* ofxParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxParticle.cpp; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				649B93E317FB4E1E004CB0BF /* ofxParticleForce.cpp */,
 				649B93DE17FB4AB4004CB0BF /* ofxParticleGravitation.h */,
 				649B93DF17FB4ABE004CB0BF /* ofxParticleGravitation.cpp */,
+				643C38281812CEDE00FED3D6 /* ofxParticlePush.h */,
+				643C38291812CEE800FED3D6 /* ofxParticlePush.cpp */,
 				649B93E817FB93CC004CB0BF /* ofxParticleRepulsion.h */,
 				649B93E917FB93D5004CB0BF /* ofxParticleRepulsion.cpp */,
 				649B93EB17FB9643004CB0BF /* ofxParticleRotation.h */,
@@ -362,6 +367,7 @@
 				649B93EA17FB93D5004CB0BF /* ofxParticleRepulsion.cpp in Sources */,
 				649B93ED17FB9652004CB0BF /* ofxParticleRotation.cpp in Sources */,
 				649B93F017FBA406004CB0BF /* ofxParticleVectorField.cpp in Sources */,
+				643C382A1812CEE800FED3D6 /* ofxParticlePush.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

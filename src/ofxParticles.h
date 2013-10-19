@@ -11,6 +11,7 @@
 #include "ofxParticleEmitter.h"
 #include "ofxParticleForce.h"
 #include "ofxParticleGravitation.h"
+#include "ofxParticlePush.h"
 #include "ofxParticleRepulsion.h"
 #include "ofxParticleRotation.h"
 #include "ofxParticleSystem.h"

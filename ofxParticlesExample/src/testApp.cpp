@@ -11,6 +11,10 @@ void testApp::setup()
     centerPt.set(ofGetWidth() * 0.5f, ofGetHeight() * 0.5f);
     
     gravitation.setup(centerPt, 2000.0f, 500.0f, 25.0f, false);
+    
+    mousePush.setup(centerPt, 300.0f, 50.0f, 10.0f, false);
+    mousePush.maskBits = 0x1101;
+    mousePush.bEnabled = true;
 
     mouseAttraction.setup(centerPt, 1000.0f, 50.0f, 10.0f, false);
     mouseAttraction.maskBits = 0x1101;
@@ -23,7 +27,7 @@ void testApp::setup()
     rotation.setup(ofVec3f(ofGetWidth() * 0.45, ofGetHeight() * 0.33f), 100.0f, 100.0f);
     
     vectorField.setup(ofGetWindowRect(), 100.0f, 128, 128, 3);
-    vectorField.maskBits = 0x1000;
+//    vectorField.maskBits = 0x1000;
     
     mouseEmitter.velSpread = ofVec3f(25.0f, 25.0f);
     mouseEmitter.life = 10.0f;
@@ -44,7 +48,6 @@ void testApp::setup()
     leftEmitter.color = ofColor(200, 100, 100);
     leftEmitter.colorSpread = ofColor(50, 50, 50);
     leftEmitter.size = 32;
-    leftEmitter.groupBits = 0x0010;
     
     rightEmitter = leftEmitter;
     rightEmitter.position.set(ofGetWidth() - 1, ofGetHeight() * 2 / 3);
@@ -77,22 +80,24 @@ void testApp::setup()
 void testApp::update()
 {    
     vectorField.update();
+    mousePush.update();
     
     // Add forces.
     float dt = MIN(ofGetLastFrameTime(), 1.0f / 10.0f);
     
 //    particleSystem.applyForce(gravitation);
-    particleSystem.applyForce(vectorField);
+//    particleSystem.applyForce(vectorField);
 //    particleSystem.applyForce(rotation);
+    particleSystem.applyForce(mousePush);
 //    particleSystem.applyForce(mouseAttraction);
 //    particleSystem.applyForce(mouseRepulsion);
     
     particleSystem.update(dt, drag);
     
     particleSystem.addParticles(leftEmitter);
-//    particleSystem.addParticles(rightEmitter);
-//    particleSystem.addParticles(topEmitter);
-//    particleSystem.addParticles(botEmitter);
+    particleSystem.addParticles(rightEmitter);
+    particleSystem.addParticles(topEmitter);
+    particleSystem.addParticles(botEmitter);
     
     // Update mouse emitter.
     mouseVel = mousePos - prevMousePos;
@@ -121,6 +126,7 @@ void testApp::draw()
     ofSetLineWidth(1.0);
     gravitation.debugDraw();
     rotation.debugDraw();
+    mousePush.debugDraw();
     if (mouseAttraction.bEnabled) {
         mouseAttraction.debugDraw();
     }
@@ -207,6 +213,7 @@ void testApp::keyReleased(int key)
 void testApp::mouseMoved(int x, int y)
 {
     mousePos.set(x, y);
+    mousePush.position.set(x, y);
     mouseAttraction.position.set(x, y);
     mouseRepulsion.position.set(x, y);
 }
@@ -215,6 +222,7 @@ void testApp::mouseMoved(int x, int y)
 void testApp::mouseDragged(int x, int y, int button)
 {
     mousePos.set(x, y);
+    mousePush.position.set(x, y);
     mouseAttraction.position.set(x, y);
     mouseRepulsion.position.set(x, y);
 }
